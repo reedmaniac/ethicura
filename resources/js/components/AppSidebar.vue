@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, Plus } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -13,6 +13,36 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Recalls',
+        href: '/dashboard/recalls',
+        icon: LayoutGrid,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Recall',
+            href: '/dashboard/recalls/create',
+        }
+    },
+    {
+        title: 'Corporations',
+        href: '/dashboard/corporations',
+        icon: LayoutGrid,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Corporation',
+            href: '/dashboard/corporations/create',
+        }
+    },
+    {
+        title: 'Users',
+        href: '/dashboard/users',
+        icon: LayoutGrid,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create User',
+            href: '/dashboard/users/create',
+        }
     },
 ];
 
@@ -31,7 +61,7 @@ const footerNavItems: NavItem[] = [
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar collapsible="icon" variant="inset" side="left">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
