@@ -5,19 +5,19 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Plus } from 'lucide-vue-next';
+import { BookOpen, Folder, House, Plus, FileWarning, BriefcaseBusiness, Users } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
-        icon: LayoutGrid,
+        icon: House,
     },
     {
         title: 'Recalls',
         href: '/dashboard/recalls',
-        icon: LayoutGrid,
+        icon: FileWarning,
         actionMenu: {
             icon: Plus,
             title: 'Create Recall',
@@ -27,7 +27,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Corporations',
         href: '/dashboard/corporations',
-        icon: LayoutGrid,
+        icon: BriefcaseBusiness,
         actionMenu: {
             icon: Plus,
             title: 'Create Corporation',
@@ -37,7 +37,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Users',
         href: '/dashboard/users',
-        icon: LayoutGrid,
+        icon: Users,
         actionMenu: {
             icon: Plus,
             title: 'Create User',
