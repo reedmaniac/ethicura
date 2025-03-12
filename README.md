@@ -25,7 +25,7 @@ Docker config is managed by Laravel Sail defaults: https://laravel.com/docs/sail
 
 - Ensure Docker is installed/configured on your system.
 - Clone this repository
-- Copy the .env file from example: `cp .env.example .env`
+- Copy the .env file from example: `cp .env.example .env` and set DB_ variables
 - Install composer dependencies:
 
 ```
