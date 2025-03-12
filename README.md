@@ -1,7 +1,9 @@
 
-# Recall Tracker: An Application for Tracking Recalls of Various Products
+# Ethicura: Ethical Consumerism Application
 
-Essentially a CMS specifically geared for tracking recall notices for products of all types. Customizable via templates. Open sourced, built from scratch by [Paul Burdick](https://github.com/reedmaniac). More details to follow.
+The ethical consumerism app aims to empower individuals to make informed decisions about the food products they purchase by providing detailed insights into a product's certifications, nutrition, packaging, and corporate practices. By highlighting sustainable, ethical, and health-conscious alternatives, the app helps users align their purchases with their values.
+
+This is essentially a backend service specifically geared for tracking the products and their data. Built from scratch by [Paul Burdick](https://github.com/reedmaniac).
 
 ## Development
 
