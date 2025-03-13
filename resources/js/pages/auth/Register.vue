@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import HeadingSmall from '@/components/HeadingSmall.vue';
 
 const form = useForm({
     name: '',
@@ -39,6 +40,12 @@ const submit = () => {
                     <Input id="email" type="email" required :tabindex="2" autocomplete="email" v-model="form.email" placeholder="email@example.com" />
                     <InputError :message="form.errors.email" />
                 </div>
+
+                <hr class="h-px mt-1.5 mb-1 bg-gray-300 border-0 dark:bg-gray-700">
+
+                <HeadingSmall
+                    description="Passwords must be at least 12 characters long and include both uppercase and lowercase letters."
+                />
 
                 <div class="grid gap-2">
                     <Label for="password">Password</Label>
