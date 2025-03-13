@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import HeadingSmall from '@/components/HeadingSmall.vue';
 
 interface Props {
     token: string;
@@ -41,6 +42,10 @@ const submit = () => {
                     <Input id="email" type="email" name="email" autocomplete="email" v-model="form.email" class="mt-1 block w-full" readonly />
                     <InputError :message="form.errors.email" class="mt-2" />
                 </div>
+
+                <HeadingSmall
+                    description="Your new password must be at least 12 characters long and include both uppercase and lowercase letters."
+                />
 
                 <div class="grid gap-2">
                     <Label for="password">Password</Label>
