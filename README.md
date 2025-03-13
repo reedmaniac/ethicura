@@ -81,7 +81,7 @@ You may view the Meilisearch control panel at [http://localhost:7700](http://loc
 
 To connect to your application's Redis database from your local machine, you may use a graphical database management application such as [TablePlus](https://tableplus.com/). The Redis database is accessible at localhost port 6379.
 
-### Code Styling
+### Code Styling (aka Linting)
 
 Just run `./vendor/bin/pint` within the Sail/Docker container and it should handle it all for you.
 
