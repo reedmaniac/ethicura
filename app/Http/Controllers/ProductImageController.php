@@ -12,9 +12,10 @@ class ProductImageController extends Controller
     /**
      * Handle the product image upload.
      *
-     * @param  ProductImageUploadRequest  $request  The validated request instance.
-     * @param  int  $productId  The ID of the associated product.
-     * @return \Illuminate\Http\JsonResponse The response containing upload status and data.
+     * @param ProductImageUploadRequest $request   the validated request instance
+     * @param int                       $productId the ID of the associated product
+     *
+     * @return \Illuminate\Http\JsonResponse the response containing upload status and data
      */
     public function upload(ProductImageUploadRequest $request, $productId)
     {

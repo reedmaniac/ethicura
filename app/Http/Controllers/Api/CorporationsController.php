@@ -14,7 +14,6 @@ class CorporationsController extends Controller
     /**
      * List corporations with optional keyword search.
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -31,7 +30,6 @@ class CorporationsController extends Controller
     /**
      * Show a single corporation.
      *
-     * @param Corporation $corporation
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Corporation $corporation)
@@ -42,8 +40,8 @@ class CorporationsController extends Controller
     /**
      * List products with optional keyword search.
      *
-     * @param Request $request
-     * @param Corporation $corporation The corporation to which the products should belong.
+     * @param Corporation $corporation the corporation to which the products should belong
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function indexProducts(Request $request, Corporation $corporation)
@@ -60,8 +58,9 @@ class CorporationsController extends Controller
     /**
      * Show a single product.
      *
-     * @param Corporation $corporation The corporation to which the product should belong.
-     * @param Product $product The product being retrieved.
+     * @param Corporation $corporation the corporation to which the product should belong
+     * @param Product     $product     the product being retrieved
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function showProduct(Corporation $corporation, Product $product)
@@ -69,6 +68,7 @@ class CorporationsController extends Controller
         if ($product->corporation_id !== $corporation->id) {
             return response()->json(['error' => 'Product does not belong to this corporation.'], 404);
         }
+
         return response()->json(new ProductResource($product));
     }
 }

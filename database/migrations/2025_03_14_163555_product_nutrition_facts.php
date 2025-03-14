@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -33,7 +32,6 @@ return new class extends Migration
             $table->decimal('fat', 8, 2)->nullable();
             $table->decimal('carbohydrates', 8, 2)->nullable();
 
-
             $table->enum('glycemic_index', ['low', 'medium', 'high'])->nullable();
             /* glycemic index, which is categorized as:
                 Low (≤ 55)
@@ -41,7 +39,6 @@ return new class extends Migration
                 High (≥ 70)
             */
         });
-
     }
 
     /**
@@ -54,7 +51,7 @@ return new class extends Migration
                 'saturated_fat', 'trans_fat', 'cholesterol', 'dietary_fiber', 'sugars', 'added_sugars',
                 'sodium', 'vitamin_a', 'vitamin_c', 'vitamin_d', 'calcium', 'iron', 'potassium',
                 'net_carbs', 'glycemic_index', 'serving_size', 'servings_per_container',
-                'calories', 'protein', 'fat', 'carbohydrates'
+                'calories', 'protein', 'fat', 'carbohydrates',
             ]);
         });
     }

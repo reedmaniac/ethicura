@@ -1,14 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\CorporationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\CorporationsController;
-
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
 
 // @todo - Unprotected for now but will be under Sanctum Access Tokens for iOS app
 Route::get('/corporations', [CorporationsController::class, 'index']);
