@@ -86,5 +86,9 @@ To connect to your application's Redis database from your local machine, you may
 - Run `./vendor/bin/pint` within the Sail/Docker container and it will take care of the backend.
 - Run `npm run lint` within the Sail/Docker container and it will check the frontend.
 
+### Running Tests
+
+- Run `./vendor/bin/phpunit` withiun the Sail/Docker container and tests will be run.
+
 
 
