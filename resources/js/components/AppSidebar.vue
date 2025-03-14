@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, House, Plus, FileWarning, BriefcaseBusiness, Users } from 'lucide-vue-next';
+import { BookOpen, Folder, House, Plus, ScanBarcode, FolderInput, BriefcaseBusiness, FileSpreadsheet, Users } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -15,13 +15,23 @@ const mainNavItems: NavItem[] = [
         icon: House,
     },
     {
-        title: 'Recalls',
-        href: '/dashboard/recalls',
-        icon: FileWarning,
+        title: 'Products',
+        href: '/dashboard/products',
+        icon: ScanBarcode,
         actionMenu: {
             icon: Plus,
-            title: 'Create Recall',
-            href: '/dashboard/recalls/create',
+            title: 'Create Product',
+            href: '/dashboard/products/create',
+        }
+    },
+    {
+        title: 'Categories',
+        href: '/dashboard/categories',
+        icon: FolderInput,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Category',
+            href: '/dashboard/categories/create',
         }
     },
     {
@@ -32,6 +42,16 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Corporation',
             href: '/dashboard/corporations/create',
+        }
+    },
+    {
+        title: 'Exports',
+        href: '/dashboard/exports',
+        icon: FileSpreadsheet,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Export',
+            href: '/dashboard/exports/create',
         }
     },
     {
