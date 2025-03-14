@@ -1,75 +1,28 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Http\Requests;
 
-use App\Models\ProductImage;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ProcessProductImage implements ShouldQueue
+class ProductImageUploadRequest extends FormRequest
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
     /**
-     * The name of the queue the job should be sent to.
-     *
-     * @var string|null
+     * Determine if the user is authorized to make this request.
      */
-    public $queue = 'image-processing';
-
-    /**
-     * The product image model instance.
-     *
-     * @var ProductImage
-     */
-    protected $productImage;
-
-    /**
-     * The base storage path for product images.
-     *
-     * @var string
-     */
-    private const PRODUCT_STORAGE_PATH = 'app/public/product_images/';
-
-    /**
-     * Create a new job instance.
-     */
-    public function __construct(ProductImage $productImage)
+    public function authorize(): bool
     {
-        $this->productImage = $productImage;
+        return false;
     }
 
     /**
-     * Execute the job.
+     * Get the validation rules that apply to the request.
      *
-     * @return void
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function handle()
+    public function rules(): array
     {
-        $imagePath = storage_path(self::PRODUCT_STORAGE_PATH . $this->productImage->path);
-        $sizes = ['thumbnail' => 150, 'medium' => 500, 'large' => 1000];
-        $orientation = $this->productImage->type;
+        return [
 
-        foreach ($sizes as $sizeName => $size) {
-            $resizedImage = Image::make($imagePath)->resize($size, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            // Save JPG version
-            $resizedPath = "product_images/{$orientation}/{$sizeName}/" . $this->productImage->uuid . '.jpg';
-            Storage::disk('public')->put($resizedPath, (string) $resizedImage->encode());
-
-            // Save WebP version
-            $webpPath = "product_images/{$orientation}/{$sizeName}/" . $this->productImage->uuid . '.webp';
-            Storage::disk('public')->put($webpPath, (string) $resizedImage->encode('webp'));
-        }
+        ];
     }
 }
