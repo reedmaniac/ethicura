@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CorporationResource extends JsonResource
+class CorporationProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,17 @@ class CorporationResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'uuid' => $this->uuid,
             'name' => $this->name,
-            'slug' => $this->slug,
             'description' => $this->description,
-            'ethical_labels' => $this->ethicalLabels
+            'barcode' => $this->barcode,
+            'status' => $this->status,
+            'certifications' => $this->certifications
+                ->sortBy('name')
+                ->values()
+                ->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name])
+                ->toArray(),
+            'packaging' => $this->packaging
                 ->sortBy('name')
                 ->values()
                 ->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name])

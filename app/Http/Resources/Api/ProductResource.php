@@ -22,9 +22,19 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'barcode' => $this->barcode,
             'status' => $this->status,
-            'corporation' => new CorporationResource($this->corporation),
-            'certifications' => $this->certifications->sortBy('name')->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name]),
-            'packaging' => $this->packaging->sortBy('name')->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name]),
+            'corporation' => $this->corporation
+                ? (new CorporationResource($this->corporation))->toArray(request())
+                : null,
+            'certifications' => $this->certifications
+                ->sortBy('name')
+                ->values()
+                ->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name])
+                ->toArray(),
+            'packaging' => $this->packaging
+                ->sortBy('name')
+                ->values()
+                ->map(fn ($tag) => ['id' => $tag->id, 'name' => $tag->name])
+                ->toArray(),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];

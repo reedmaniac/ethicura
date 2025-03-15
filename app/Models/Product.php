@@ -11,7 +11,6 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
-
     use HasTags;
     use SoftDeletes;
 
@@ -49,6 +48,14 @@ class Product extends Model
         'serving_size',
         'servings_per_container',
     ];
+
+    /**
+     * Get the corporation assigned to the product.
+     */
+    public function corporation()
+    {
+        return $this->belongsTo(Corporation::class);
+    }
 
     /**
      * Get the certifications assigned to the product.

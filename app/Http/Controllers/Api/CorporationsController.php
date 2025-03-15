@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\CorporationResource;
-use App\Http\Resources\Api\ProductResource;
+use App\Http\Resources\Api\CorporationProductResource;
 use App\Models\Corporation;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -18,13 +18,13 @@ class CorporationsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Corporation::query();
+        $query = Corporation::with('ethicalLabels');
 
         if ($request->has('keyword')) {
             $query->where('name', 'LIKE', '%' . $request->keyword . '%');
         }
 
-        return response()->json(CorporationResource::collection($query->paginate(10)));
+        return CorporationResource::collection($query->paginate(10));
     }
 
     /**
@@ -46,13 +46,13 @@ class CorporationsController extends Controller
      */
     public function indexProducts(Request $request, Corporation $corporation)
     {
-        $query = $corporation->products();
+        $query = $corporation->products()->with('certifications', 'packaging');
 
         if ($request->has('keyword')) {
             $query->where('name', 'LIKE', '%' . $request->keyword . '%');
         }
 
-        return response()->json(ProductResource::collection($query->paginate(10)));
+        return CorporationProductResource::collection($query->paginate(10));
     }
 
     /**
@@ -69,6 +69,6 @@ class CorporationsController extends Controller
             return response()->json(['error' => 'Product does not belong to this corporation.'], 404);
         }
 
-        return response()->json(new ProductResource($product));
+        return response()->json(new CorporationProductResource($product));
     }
 }
