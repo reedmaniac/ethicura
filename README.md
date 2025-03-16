@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://github.com/reedmaniac/ethicura" target="_blank"><img src="https://raw.githubusercontent.com/reedmaniac/ethicura/refs/heads/main/public/images/ethicura-logo-v1.svg" width="400" alt="Ethicura Logo"></a></p>
+<p align="center"><a href="https://github.com/reedmaniac/ethicura" target="_blank"><img src="https://raw.githubusercontent.com/reedmaniac/ethicura/refs/heads/main/public/images/ethicura-logo-v1.svg" width="200" alt="Ethicura Logo"></a></p>
 
 
 # Ethicura: Ethical Consumerism Application
