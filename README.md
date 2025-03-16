@@ -1,4 +1,7 @@
 
+<p align="center"><a href="https://github.com/reedmaniac/ethicura" target="_blank"><img src="https://raw.githubusercontent.com/reedmaniac/ethicura/refs/heads/main/public/images/ethicura-logo-v1.svg" width="400" alt="Ethicura Logo"></a></p>
+
+
 # Ethicura: Ethical Consumerism Application
 
 The ethical consumerism app aims to empower individuals to make informed decisions about the food products they purchase by providing detailed insights into a product's certifications, nutrition, packaging, and corporate practices. By highlighting sustainable, ethical, and health-conscious alternatives, the app helps users align their purchases with their values.
