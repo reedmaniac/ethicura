@@ -41,13 +41,13 @@ const submit = () => {
                     <InputError :message="form.errors.email" />
                 </div>
 
-                <hr class="h-px mt-1.5 mb-1 bg-gray-300 border-0 dark:bg-gray-700">
-
-                <HeadingSmall
-                    description="Passwords must be at least 12 characters long and include both uppercase and lowercase letters."
-                />
+                <hr class="h-px my-0 bg-gray-300 border-0 dark:bg-gray-700">
 
                 <div class="grid gap-2">
+                    <HeadingSmall
+                        class="mb-2"
+                        description="Passwords must be at least 12 characters long and include both uppercase and lowercase letters."
+                    />
                     <Label for="password">Password</Label>
                     <Input
                         id="password"
