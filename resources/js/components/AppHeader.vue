@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
+import { BookOpen, Folder, House, Plus, ScanBarcode, FolderInput, BriefcaseBusiness, FileSpreadsheet, Users } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -40,18 +40,58 @@ const activeItemStyles = computed(
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
+        title: 'Products',
+        href: '/dashboard/products',
+        icon: ScanBarcode,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Product',
+            href: '/dashboard/products/create',
+        }
+    },
+    {
+        title: 'Categories',
+        href: '/dashboard/categories',
+        icon: FolderInput,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Category',
+            href: '/dashboard/categories/create',
+        }
+    },
+    {
+        title: 'Corporations',
+        href: '/dashboard/corporations',
+        icon: BriefcaseBusiness,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Corporation',
+            href: '/dashboard/corporations/create',
+        }
+    },
+    {
+        title: 'Exports',
+        href: '/dashboard/exports',
+        icon: FileSpreadsheet,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create Export',
+            href: '/dashboard/exports/create',
+        }
+    },
+    {
+        title: 'Users',
+        href: '/dashboard/users',
+        icon: Users,
+        actionMenu: {
+            icon: Plus,
+            title: 'Create User',
+            href: '/dashboard/users/create',
+        }
     },
 ];
 
 const rightNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
     {
         title: 'Documentation',
         href: 'https://laravel.com/docs/starter-kits',
