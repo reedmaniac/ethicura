@@ -8,7 +8,6 @@ use App\Models\Corporation;
 use App\Models\Product;
 use App\Http\Resources\Api\CorporationResource;
 use App\Http\Resources\Api\CorporationProductResource;
-use Illuminate\Container\Container;
 
 class CorporationsTest extends TestCase
 {
@@ -23,8 +22,8 @@ class CorporationsTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    ['id', 'name', 'slug', 'description', 'ethical_labels']
-                ]
+                    ['id', 'name', 'slug', 'description', 'ethical_labels'],
+                ],
             ]);
     }
 
@@ -50,8 +49,8 @@ class CorporationsTest extends TestCase
         $response->assertStatus(200)
              ->assertJsonStructure([
                  'data' => [
-                     ['id', 'uuid', 'name', 'description', 'barcode', 'status']
-                 ]
+                     ['id', 'uuid', 'name', 'description', 'barcode', 'status'],
+                 ],
              ]);
     }
 

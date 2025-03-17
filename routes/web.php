@@ -3,7 +3,7 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -12,10 +12,8 @@ Route::get('/', function () {
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
 
-Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function() {
-
-   Route::resource('products', ProductsController::class);
-
+Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
+    Route::resource('products', ProductsController::class);
 })->middleware(['auth', 'verified']);
 
 
