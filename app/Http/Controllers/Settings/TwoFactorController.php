@@ -97,6 +97,6 @@ class TwoFactorController extends Controller
     {
         return ! array_key_exists('code', $request->session()->getOldInput()) &&
             is_null($request->user()->two_factor_confirmed_at) &&
-            $request->session()->get('two_factor_confirming_at', 0) != $currentTime;
+            $request->session()->get('two_factor_confirming_at', 0) !== $currentTime;
     }
 }
