@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Laravel\Fortify\Features;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -39,7 +40,16 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => function () use ($request) {
+                    if (! $user = $request->user()) {
+                        return;
+                    }
+
+                    return array_merge($user->toArray(), [
+                        'two_factor_enabled' => Features::enabled(Features::twoFactorAuthentication())
+                            && ! is_null($user->two_factor_secret),
+                    ]);
+                },
             ],
         ];
     }

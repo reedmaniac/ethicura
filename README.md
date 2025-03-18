@@ -18,6 +18,7 @@ This is essentially a backend service specifically geared for tracking the produ
 - [Vite v4](https://laravel.com/docs/vite) - JS/CSS assets
 - [Tailwindcss v3.4](https://tailwindcss.com/) - frontend styling
 - [Vue 3](https://vuejs.org/) and [Inertiajs](https://inertiajs.com/) - frontend framework
+- [shadcn/vue Components](https://www.shadcn-vue.com/docs)
 - [Ziggy](https://github.com/tighten/ziggy) - Vue/Laravel route binding
 - [FontAwesome 6](https://docs.fontawesome.com/web/) - icons.
 
