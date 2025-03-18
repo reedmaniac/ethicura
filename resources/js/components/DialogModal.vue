@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 /* @TODO - Change this to the UI component */
 import Modal from './Modal.vue';
 

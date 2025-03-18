@@ -1,9 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, nextTick } from 'vue';
-import DialogModal from './DialogModal.vue';
 import InputError from './InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import axios from 'axios';
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 const emit = defineEmits(['confirmed']);
 
@@ -22,6 +33,7 @@ defineProps({
     },
 });
 
+const modalOpen = ref(false);
 const confirmingPassword = ref(false);
 
 const form = reactive({
@@ -30,16 +42,17 @@ const form = reactive({
     processing: false,
 });
 
-const passwordInput = ref(null);
-
 const startConfirmingPassword = () => {
+    modalOpen.value = false;
+
     axios.get(route('password.confirmation')).then(response => {
         if (response.data.confirmed) {
             emit('confirmed');
         } else {
+            modalOpen.value = true;
             confirmingPassword.value = true;
 
-            setTimeout(() => passwordInput.value.focus(), 250);
+            setTimeout(() => document.getElementById('password_input').focus(), 250);
         }
     });
 };
@@ -58,7 +71,7 @@ const confirmPassword = () => {
     }).catch(error => {
         form.processing = false;
         form.error = error.response.data.errors.password[0];
-        passwordInput.value.focus();
+        document.getElementById('password_input').focus();
     });
 };
 
@@ -66,52 +79,57 @@ const closeModal = () => {
     confirmingPassword.value = false;
     form.password = '';
     form.error = '';
+    modalOpen.value = false;
 };
+
 </script>
 
+
 <template>
-    <span>
-        <span @click="startConfirmingPassword">
-            <slot />
-        </span>
+  <Dialog v-model:open="modalOpen">
+    <DialogTrigger @click="startConfirmingPassword">
+      <slot />
+    </DialogTrigger>
 
-        <DialogModal :show="confirmingPassword" @close="closeModal">
-            <template #title>
-                {{ title }}
-            </template>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{{ title }}</DialogTitle>
+        <DialogDescription>
+            {{ content }}
 
-            <template #content>
-                {{ content }}
+            <div class="mt-4">
+                <Input
+                    id="password_input"
+                    v-model="form.password"
+                    type="password"
+                    class="mt-1 block w-3/4"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    @keyup.enter="confirmPassword"
+                />
 
-                <div class="mt-4">
-                    <Input
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
-                        class="mt-1 block w-3/4"
-                        placeholder="Password"
-                        autocomplete="current-password"
-                        @keyup.enter="confirmPassword"
-                    />
+                <InputError :message="form.error" class="mt-2" />
+            </div>
+        </DialogDescription>
+      </DialogHeader>
 
-                    <InputError :message="form.error" class="mt-2" />
-                </div>
-            </template>
+      <DialogFooter>
+        <DialogClose>
+          <Button type="button" variant="secondary">
+            Cancel
+          </Button>
+        </DialogClose>
 
-            <template #footer>
-                <Button variant="secondary" @click="closeModal">
-                    Cancel
-                </Button>
+        <Button
+            class="ms-3"
+            :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing"
+            @click="confirmPassword"
+        >
+            {{ button }}
+        </Button>
+      </DialogFooter>
+    </DialogContent>
 
-                <Button variant="primary"
-                    class="ms-3"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                    @click="confirmPassword"
-                >
-                    {{ button }}
-                </Button>
-            </template>
-        </DialogModal>
-    </span>
+  </Dialog>
 </template>
