@@ -9,6 +9,7 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -33,22 +34,29 @@ class FortifyServiceProvider extends ServiceProvider
         // Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         // Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        // RateLimiter::for('login', function (Request $request) {
-        //     $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+        RateLimiter::for('login', function (Request $request) {
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
-        //     return Limit::perMinute(5)->by($throttleKey);
-        // });
+            return Limit::perMinute(5)->by($throttleKey);
+        });
+
+        Fortify::loginView(function () {
+            return Inertia::render('auth/Login', [
+                'canResetPassword' => Route::has('password.request'),
+                'status' => session('status'),
+            ]);
+        });
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
         Fortify::twoFactorChallengeView(function () {
-            return Inertia::render('Auth/TwoFactorChallenge');
+            return Inertia::render('auth/TwoFactorChallenge');
         });
 
         Fortify::confirmPasswordView(function () {
-            return Inertia::render('Auth/ConfirmPassword');
+            return Inertia::render('auth/ConfirmPassword');
         });
     }
 }
