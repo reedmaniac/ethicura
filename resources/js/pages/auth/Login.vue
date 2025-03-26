@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, useTemplateRef } from 'vue';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,13 @@ defineProps<{
     status?: string;
     canResetPassword: boolean;
 }>();
+
+const showPassword = ref(false);
+
+const toggleShowPassword = () => {
+    showPassword.value = !showPassword.value;
+    document.getElementById('password').focus();
+};
 
 const form = useForm({
     email: '',
@@ -61,7 +69,7 @@ const submit = () => {
                     </div>
                     <Input
                         id="password"
-                        type="password"
+                        :type="showPassword ? 'text' : 'password'"
                         required
                         :tabindex="2"
                         autocomplete="current-password"
@@ -69,16 +77,27 @@ const submit = () => {
                         placeholder="Password"
                     />
                     <InputError :message="form.errors.password" />
+
+                    <div class="align-left text-sm">
+                        <a
+                            href="#"
+                            v-on:click.prevent="toggleShowPassword"
+                            class="hover:!decoration-current text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out dark:decoration-neutral-500"
+                        >
+                          {{ showPassword ? 'Hide' : 'Show' }}
+                        </a>
+                    </div>
                 </div>
 
-                <div class="flex items-center justify-between" :tabindex="3">
+
+                <div class="flex items-center justify-between" :tabindex="4">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox id="remember" v-model:checked="form.remember" :tabindex="4" />
                         <span>Remember me</span>
                     </Label>
                 </div>
 
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
+                <Button type="submit" class="mt-4 w-full" :tabindex="6" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Log in
                 </Button>
@@ -86,7 +105,7 @@ const submit = () => {
 
             <div class="text-center text-sm text-muted-foreground">
                 Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                <TextLink :href="route('register')" :tabindex="6">Sign up</TextLink>
             </div>
         </form>
     </AuthBase>
