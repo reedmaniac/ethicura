@@ -1,10 +1,9 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
 
-import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@//components/ui/checkbox'
 import { h } from 'vue'
-import { labels, priorities, statuses } from '../data/data'
+import { statuses } from '../data/data'
 import DataTableColumnHeader from './DataTableColumnHeader.vue'
 import DataTableRowActions from './DataTableRowActions.vue'
 
@@ -23,21 +22,35 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Task' }),
-    cell: ({ row }) => h('div', { class: 'w-20' }, row.getValue('id')),
+    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'ID' }),
+    cell: ({ row }) => h('div', { class: 'w-4' }, row.getValue('id')),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
-    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Title' }),
+    accessorKey: 'name',
+    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Name' }),
 
     cell: ({ row }) => {
-      const label = labels.find(label => label.value === row.original.label)
+      return h('div', { class: 'flex space-x-2' }, [
+        h('span', { class: 'max-w-[500px] truncate font-semibold' }, row.getValue('name')),
+      ])
+    },
+  },
+  {
+    accessorKey: 'corporation',
+    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Corporation' }),
+
+    cell: ({ row }) => {
+
+      const corporation = row.getValue('corporation');
+
+      if (!corporation) {
+        return null
+      }
 
       return h('div', { class: 'flex space-x-2' }, [
-        label ? h(Badge, { variant: 'outline' }, () => label.label) : null,
-        h('span', { class: 'max-w-[500px] truncate font-medium' }, row.getValue('title')),
+        h('span', { class: 'max-w-[500px] truncate font-medium' }, corporation.name),
       ])
     },
   },
@@ -50,32 +63,13 @@ export const columns: ColumnDef<Task>[] = [
         status => status.value === row.getValue('status'),
       )
 
-      if (!status)
+      if (!status) {
         return null
+      }
 
       return h('div', { class: 'flex w-[100px] items-center' }, [
         status.icon && h(status.icon, { class: 'mr-2 h-4 w-4 text-muted-foreground' }),
         h('span', status.label),
-      ])
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-  },
-  {
-    accessorKey: 'priority',
-    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Priority' }),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        priority => priority.value === row.getValue('priority'),
-      )
-
-      if (!priority)
-        return null
-
-      return h('div', { class: 'flex items-center' }, [
-        priority.icon && h(priority.icon, { class: 'mr-2 h-4 w-4 text-muted-foreground' }),
-        h('span', {}, priority.label),
       ])
     },
     filterFn: (row, id, value) => {

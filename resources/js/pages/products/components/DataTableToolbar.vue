@@ -9,7 +9,7 @@ import { computed } from 'vue'
 import { X } from 'lucide-vue-next';
 
 
-import { priorities, statuses } from '../data/data'
+import { statuses } from '../data/data'
 import DataTableFacetedFilter from './DataTableFacetedFilter.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
 
@@ -26,10 +26,10 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
   <div class="flex items-center justify-between">
     <div class="flex flex-1 items-center space-x-2">
       <Input
-        placeholder="Filter tasks..."
-        :model-value="(table.getColumn('title')?.getFilterValue() as string) ?? ''"
+        placeholder="Filter products..."
+        :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ''"
         class="h-8 w-[150px] lg:w-[250px]"
-        @input="table.getColumn('title')?.setFilterValue($event.target.value)"
+        @input="table.getColumn('name')?.setFilterValue($event.target.value)"
       />
       <DataTableFacetedFilter
         v-if="table.getColumn('status')"
@@ -37,13 +37,6 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
         title="Status"
         :options="statuses"
       />
-      <DataTableFacetedFilter
-        v-if="table.getColumn('priority')"
-        :column="table.getColumn('priority')"
-        title="Priority"
-        :options="priorities"
-      />
-
       <Button
         v-if="isFiltered"
         variant="ghost"

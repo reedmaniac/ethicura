@@ -3,8 +3,11 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { columns } from './components/columns'
-import DataTable from './components/DataTable.vue'
-import tasks from './data/tasks.json'
+import ProductDataTable from './components/ProductDataTable.vue'
+
+defineProps<{
+    products: object;
+}>();
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -27,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 Products
               </h2>
           </div>
-          <DataTable :data="tasks" :columns="columns" />
+          <ProductDataTable :data="products" :columns="columns" />
         </div>
     </AppLayout>
 </template>
