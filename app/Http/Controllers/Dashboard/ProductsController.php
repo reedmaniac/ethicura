@@ -15,7 +15,6 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        exit('Soon!');
-        return Inertia::render('Dashboard');
+        return Inertia::render('products/Products');
     }
 }
