@@ -11,7 +11,7 @@ import ConfirmsPassword from '@/components/ConfirmsPassword.vue';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { type BreadcrumbItem, type SharedData, type User } from '@/types';
+import { type BreadcrumbItem, type SharedData } from '@/types';
 import axios from 'axios';
 
 const props = defineProps({

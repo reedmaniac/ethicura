@@ -12,7 +12,6 @@ import {
 
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-vue-next';
 
-
 interface DataTablePaginationProps {
   table: Table<Task>
 }
