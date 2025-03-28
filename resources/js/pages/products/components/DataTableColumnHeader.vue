@@ -2,14 +2,14 @@
 import type { Column } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
 import { cn } from '@/lib/utils'
-import { Button } from '@/registry/new-york/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/registry/new-york/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu'
 
 import { ArrowDown, ArrowUp, ArrowDownUp, EyeOff } from 'lucide-vue-next';
 

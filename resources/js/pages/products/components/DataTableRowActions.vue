@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Row } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
-import { Button } from '@/registry/new-york/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/registry/new-york/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu'
 import { computed } from 'vue'
 
 import { Ellipsis } from 'lucide-vue-next';

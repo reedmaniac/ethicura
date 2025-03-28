@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
-import { Button } from '@/registry/new-york/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/registry/new-york/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu'
 
 import { computed } from 'vue'
 import { SlidersHorizontal } from 'lucide-vue-next';

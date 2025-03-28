@@ -3,16 +3,16 @@ import type { Column } from '@tanstack/vue-table'
 import type { Component } from 'vue'
 import type { Task } from '../data/schema'
 import { cn } from '@/lib/utils'
-import { Badge } from '@/registry/new-york/ui/badge'
-import { Button } from '@/registry/new-york/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/registry/new-york/ui/command'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/registry/new-york/ui/popover'
-import { Separator } from '@/registry/new-york/ui/separator'
+} from '@/components/ui/popover'
+import { Separator } from '@/components/ui/separator'
 
 import { computed } from 'vue'
 import { Check, CirclePlus } from 'lucide-vue-next';

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
-import { Button } from '@/registry/new-york/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/registry/new-york/ui/select'
+} from '@/components/ui/select'
 
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-vue-next';
 

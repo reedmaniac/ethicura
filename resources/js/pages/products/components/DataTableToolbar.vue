@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import type { Task } from '../data/schema'
-import { Button } from '@/registry/new-york/ui/button'
+import { Button } from '@/components/ui/button'
 
-import { Input } from '@/registry/new-york/ui/input'
+import { Input } from '@/components/ui/input'
 import { computed } from 'vue'
 
 import { X } from 'lucide-vue-next';
