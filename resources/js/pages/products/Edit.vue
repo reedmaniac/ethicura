@@ -2,7 +2,6 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { columns } from './components/columns'
 import ProductEditForm from './EditForm.vue';
 
 defineProps<{

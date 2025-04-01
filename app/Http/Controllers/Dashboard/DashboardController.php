@@ -11,7 +11,6 @@ use App\Http\Requests\StoreQuickProductRequest;
 
 class DashboardController extends Controller
 {
-
     /**
      * The ProductsService
      *
@@ -63,6 +62,5 @@ class DashboardController extends Controller
                 ]
             )
         );
-
     }
 }

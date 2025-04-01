@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
 import { router } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import InputError from '@/components/InputError.vue';
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+// import { Input } from '@/components/ui/input'
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from '@/components/ui/select'
+// import InputError from '@/components/InputError.vue';
+// import { Label } from '@/components/ui/label'
+// import { Textarea } from '@/components/ui/textarea'
 import { CircleX, ScanBarcode } from 'lucide-vue-next';
 
 const {product} = defineProps<{
@@ -22,7 +21,7 @@ const {product} = defineProps<{
     cloned_bulletin?: object;
 }>();
 
-const emits = defineEmits(['created', 'updated']);
+defineEmits(['created', 'updated']);
 
 let formParams = null;
 const formStub = {
@@ -53,10 +52,11 @@ if (product) {
     formParams = formStub;
 }
 
-let form = useForm(formParams);
+const form = useForm(formParams);
 
 router.on('before', (event) => {
     if (form.form.isDirty === true) {
+        event.preventDefault();
         return confirm('Are you sure you want to navigate away? You may have unsaved changes.')
     }
 })

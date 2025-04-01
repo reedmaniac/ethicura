@@ -37,7 +37,6 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-
     }
 
     /**
@@ -59,7 +58,6 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-
     }
 
     /**
