@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        return Inertia::render(
+            'products/Products',
+            [
+                'products' => Product::with('corporation')
+                    ->select('id', 'uuid', 'name', 'description', 'corporation_id', 'created_at', 'status')
+                    ->get(),
+            ]
+        );
     }
 
     /**

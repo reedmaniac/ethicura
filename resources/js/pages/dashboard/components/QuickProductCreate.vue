@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useForm } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -19,47 +18,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import InputError from '@/components/InputError.vue';
 import { Label } from '@/components/ui/label'
-
-import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { toast } from 'vue-sonner'
-import { toTypedSchema } from '@vee-validate/zod'
-import { FieldArray, useForm } from 'vee-validate'
-import { h, ref } from 'vue'
-import * as z from 'zod'
 
-const basicProductFormSchema = toTypedSchema(z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: 'Name must be at least 2 characters.',
-    })
-    .max(50, {
-      message: 'Name must not be longer than 50 characters.',
-    }),
-  description: z
-    .string()
-    .max(1000, { message: 'Description must not be longer than 1000 characters.' })
-    .min(4, { message: 'Description must be at least 2 characters.' }),
-  corporation: z.optional(),
-}))
+const { corporations } = defineProps({
+    corporations: {
+        type: Array,
+        default: [],
+        required: true,
+    },
+});
 
-const { handleSubmit, resetForm } = useForm({
-  validationSchema: basicProductFormSchema,
-})
+const form = useForm({
+    name: 'My First Product',
+    description: '',
+    corporation_id: 7,
+    status: 'draft',
+});
 
-const onSubmit = handleSubmit((values) => {
-  toast({
-    title: 'You submitted the following values:',
-    description: h(
-      'pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' },
-      h('code', { class: 'text-white' },
-        JSON.stringify(values, null, 2
-      )
-    )),
-  })
-})
+const submit = () => {
+  form.post(route('dashboard.quick-product'), {
+    onSuccess: () => {
+      form.reset();
+    },
+  });
+};
 </script>
 
 <template>
@@ -72,64 +56,39 @@ const onSubmit = handleSubmit((values) => {
     </CardHeader>
     <CardContent class="grid gap-6">
 
-      <form class="space-y-8" @submit="onSubmit">
-        <FormField v-slot="{ componentField }" name="name">
-          <FormItem>
-            <Label>Name</Label>
-            <FormControl>
-              <Input type="text" placeholder="" v-bind="componentField" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </FormField>
+      <form class="space-y-4" @submit.prevent="submit">
+        <div>
+          <Label for="quick_product_name">Name</Label>
+          <Input id="quick_product_name" type="text" placeholder="" v-model="form.name" required />
+          <InputError class="mt-2" :message="form.errors.name" />
+        </div>
 
+        <div>
+          <Label for="quick_product_description">Description</Label>
+          <Textarea
+            id="quick_product_description"
+            placeholder="Tell us a little bit about the product"
+            v-model="form.description" />
+          <InputError class="mt-2" :message="form.errors.description" />
+        </div>
 
-        <FormField v-slot="{ componentField }" name="description">
-          <FormItem>
-            <FormLabel>Description</FormLabel>
-            <FormControl>
-              <Textarea placeholder="Tell us a little bit about the product" v-bind="componentField" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </FormField>
+        <div>
+          <Label>Corporation</Label>
 
-        <FormField v-slot="{ componentField }" name="corporation">
-          <FormItem>
-            <FormLabel>Corporation</FormLabel>
-
-            <Select v-bind="componentField">
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a corporation" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="1">
-                    Evil
-                  </SelectItem>
-                  <SelectItem value="2">
-                    Really Evil
-                  </SelectItem>
-                  <SelectItem value="3">
-                    Super Evil
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        </FormField>
+          <Select v-model="form.corporation_id" required>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a corporation" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem v-for="corporation in corporations" :value="corporation.id">
+                {{ corporation.name }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+          <InputError class="mt-2" :message="form.errors.corporation_id" />
+        </div>
 
         <div class="flex gap-2 justify-end">
-          <Button
-            type="button"
-            variant="ghost"
-            @click="resetForm"
-          >
-            Reset form
-          </Button>
           <Button type="submit">
             Submit
           </Button>

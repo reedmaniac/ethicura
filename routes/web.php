@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,11 +10,12 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('dashboard/quick-product', [DashboardController::class, 'storeQuickProduct'])->name('dashboard.quick-product');
 
-Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
     Route::resource('products', ProductsController::class);
-})->middleware(['auth', 'verified']);
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
