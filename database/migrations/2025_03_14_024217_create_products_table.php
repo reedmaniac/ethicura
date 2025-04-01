@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->uuid('uuid')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('barcode')->unique();
+            $table->string('barcode')->unique()->nullable();
             $table->foreignId('corporation_id')->constrained()->onDelete('cascade');
 
             $table->string('status')->default('draft');

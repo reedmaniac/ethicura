@@ -50,6 +50,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
+        dd('The once and future editing page');
     }
 
     /**

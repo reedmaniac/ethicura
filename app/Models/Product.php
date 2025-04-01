@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Spatie\Tags\HasTags;
 
 class Product extends Model
@@ -20,7 +21,6 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'uuid',
         'name',
         'description',
         'barcode',
@@ -48,6 +48,16 @@ class Product extends Model
         'serving_size',
         'servings_per_container',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::creating(function (Product $product) {
+            $product->uuid = Str::uuid();
+        });
+    }
 
     /**
      * Get the corporation assigned to the product.

@@ -86,7 +86,7 @@ const submit = () => {
 
         <div class="flex gap-2 justify-end">
           <Button type="submit">
-            Submit
+            Create
           </Button>
         </div>
       </form>

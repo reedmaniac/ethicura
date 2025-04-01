@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Services\ProductsService;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Models\Corporation;
@@ -10,6 +11,25 @@ use App\Http\Requests\StoreQuickProductRequest;
 
 class DashboardController extends Controller
 {
+
+    /**
+     * The ProductsService
+     *
+     * @var ProductsService
+     */
+    protected $products_service;
+
+    /**
+     * Constructor
+     *
+     * @param ProductsService $products_service
+     * @return void
+     */
+    public function __construct(ProductsService $products_service)
+    {
+        $this->products_service = $products_service;
+    }
+
     /**
      * Show Main Dashboard
      *
@@ -33,6 +53,16 @@ class DashboardController extends Controller
      */
     public function storeQuickProduct(StoreQuickProductRequest $request)
     {
-        dd('YAY');
+        $product = $this->products_service->create($request->all());
+
+        return redirect(
+            route(
+                'products.edit',
+                [
+                    'product' => $product,
+                ]
+            )
+        );
+
     }
 }
