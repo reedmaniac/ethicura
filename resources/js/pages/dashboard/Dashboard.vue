@@ -14,8 +14,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 const { corporations } = defineProps({
     corporations: {
         type: Array,
-        default: [],
-        required: true,
     },
 });
 

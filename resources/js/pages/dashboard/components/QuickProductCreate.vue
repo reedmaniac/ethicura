@@ -6,14 +6,12 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -25,8 +23,6 @@ import { Textarea } from '@/components/ui/textarea'
 const { corporations } = defineProps({
     corporations: {
         type: Array,
-        default: [],
-        required: true,
     },
 });
 
@@ -80,7 +76,7 @@ const submit = () => {
               <SelectValue placeholder="Select a corporation" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem v-for="corporation in corporations" :value="corporation.id">
+              <SelectItem v-for="corporation in corporations" :value="corporation.id" :key="corporation.id">
                 {{ corporation.name }}
               </SelectItem>
             </SelectContent>

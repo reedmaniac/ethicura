@@ -6,7 +6,6 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
