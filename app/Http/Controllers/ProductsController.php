@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Corporation;
 use App\Models\Product;
 use Inertia\Inertia;
 
@@ -36,13 +37,7 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
     }
 
     /**
@@ -50,7 +45,13 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        dd('The once and future editing page');
+        return Inertia::render(
+            'products/Edit',
+            [
+                'product' => $product->load('certifications', 'packaging'),
+                'corporations' => Corporation::select('name', 'id')->orderBy('name')->get(),
+            ]
+        );
     }
 
     /**
@@ -58,6 +59,7 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+
     }
 
     /**

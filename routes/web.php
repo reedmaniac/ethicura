@@ -14,7 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('dashboard/quick-product', [DashboardController::class, 'storeQuickProduct'])->name('dashboard.quick-product');
 
-    Route::resource('products', ProductsController::class);
+    Route::resource('products', ProductsController::class)->except('show');
 });
 
 require __DIR__ . '/settings.php';
