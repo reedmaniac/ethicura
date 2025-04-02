@@ -12,6 +12,7 @@
                     `
                     rounded-l
                     rounded-r-none
+                    min-w-[80px]
                     `,
                     props.class,
                 )
