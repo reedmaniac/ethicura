@@ -107,42 +107,44 @@ const savingActionChanged = (newVal) => {
             </div>
         </div>
 
-        <div>
-            <Tabs default-value="General" class="w-[400px]">
-                <TabsList class="grid w-full grid-cols-2">
-                  <TabsTrigger value="General">
+        <div class="w-full mt-[-1.8em]">
+            <Tabs default-value="General">
+                <TabsList class="w-full justify-start rounded-none border-b bg-transparent p-0">
+                  <TabsTrigger value="General" class="text-base relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
                     General
                   </TabsTrigger>
-                  <TabsTrigger value="Nutrition">
+                  <TabsTrigger value="Nutrition" class="text-base relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
                     Nutrition
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="General">
-                    <div class="flex flex-col gap-y-3">
-                        <div class="space-y-1">
-                            <Label for="name">Name</Label>
-                            <Input id="name" default-value="Pedro Duarte" />
+                <div class="max-w-xl">
+                    <TabsContent value="General">
+                        <div class="flex flex-col gap-y-3">
+                            <div class="space-y-1">
+                                <Label for="name">Name</Label>
+                                <Input id="name" default-value="Pedro Duarte" />
+                            </div>
+                            <div class="space-y-1">
+                                <Label for="description">Description</Label>
+                                <Textarea id="description" rows="5" />
+                            </div>
                         </div>
-                        <div class="space-y-1">
-                            <Label for="description">Description</Label>
-                            <Textarea id="description" rows="5" />
-                        </div>
-                    </div>
-                </TabsContent>
+                    </TabsContent>
 
-                <TabsContent value="Nutrition">
-                    <div class="flex flex-col gap-y-3">
-                        <div class="space-y-1">
-                            <Label for="saturated_fat">Saturated Fat (g)</Label>
-                            <Input id="saturated_fat" type="number" />
+                    <TabsContent value="Nutrition">
+                        <div class="flex flex-col gap-y-3">
+                            <div class="space-y-1">
+                                <Label for="saturated_fat">Saturated Fat (g)</Label>
+                                <Input id="saturated_fat" type="number" />
+                            </div>
+                            <div class="space-y-1">
+                                <Label for="trans_fat">Trans Fat (g)</Label>
+                                <Input id="trans_fat" type="number" />
+                            </div>
                         </div>
-                        <div class="space-y-1">
-                            <Label for="trans_fat">Trans Fat (g)</Label>
-                            <Input id="trans_fat" type="number" />
-                        </div>
-                    </div>
-                </TabsContent>
+                    </TabsContent>
+                </div>
               </Tabs>
         </div>
     </form>
