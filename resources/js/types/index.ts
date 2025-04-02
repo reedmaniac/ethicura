@@ -10,6 +10,13 @@ export interface BreadcrumbItem {
     href: string;
 }
 
+export interface FieldItem {
+    type: string;
+    name: string;
+    label: string;
+    defaultValue?: string | number;
+}
+
 export interface NavItem {
     title: string;
     href: string;

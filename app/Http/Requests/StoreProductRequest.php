@@ -42,12 +42,13 @@ class StoreProductRequest extends FormRequest
             'calcium' => 'nullable|integer|min:0',
             'iron' => 'nullable|integer|min:0',
             'potassium' => 'nullable|integer|min:0',
-            'net_carbs' => 'nullable|numeric|min:0',
             'glycemic_index' => 'nullable|in:low,medium,high',
             'serving_size' => 'nullable|string|max:255',
             'servings_per_container' => 'nullable|integer|min:1',
             'calories' => 'nullable|numeric|min:0',
             'protein' => 'nullable|numeric|min:0',
+            'fat' => 'nullable|numeric|min:0',
+            'carbohydrates' => 'nullable|numeric|min:0',
         ];
     }
 }

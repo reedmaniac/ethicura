@@ -24,7 +24,6 @@ return new class () extends Migration {
             $table->integer('calcium')->nullable();
             $table->integer('iron')->nullable();
             $table->integer('potassium')->nullable();
-            $table->decimal('net_carbs', 8, 2)->nullable();
             $table->string('serving_size')->nullable();
             $table->integer('servings_per_container')->nullable();
             $table->decimal('calories', 8, 2)->nullable();

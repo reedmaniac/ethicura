@@ -8,12 +8,20 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { CircleX } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
+import { type FieldItem } from '@/types';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/tabs'
+} from '@/components/ui/tabs';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const {product} = defineProps<{
     product?: object;
@@ -30,6 +38,28 @@ const formStub = {
     corporation_id: null,
     certification_ids: [],
     packaging_ids: [],
+
+    saturated_fat: null,
+    trans_fat: null,
+    cholesterol: null,
+    dietary_fiber: null,
+    sugars: null,
+    added_sugars: null,
+    sodium: null,
+    vitamin_a: null,
+    vitamin_c: null,
+    vitamin_d: null,
+    calcium: null,
+    iron: null,
+    potassium: null,
+    glycemic_index: null,
+    serving_size: null,
+    servings_per_container: null,
+    calories: null,
+    protein: null,
+    fat: null,
+    carbohydrates: null,
+
     editors_note: '',
     status: 'draft',
     save_button_option: null,
@@ -81,6 +111,123 @@ const submit = () => {
 const savingActionChanged = (newVal) => {
     form.save_button_option = newVal;
 };
+
+const nutritionFields: FieldItem[] = [
+    {
+        name: 'serving_size',
+        label: 'Serving Size (g)',
+        type: 'number',
+    },
+    {
+        name: 'servings_per_container',
+        label: 'Servings Per Container',
+        type: 'number',
+    },
+    {
+        name: 'calories',
+        label: 'Calories',
+        type: 'number',
+    },
+    {
+        name: 'protein',
+        label: 'Protein (g)',
+        type: 'number',
+    },
+    {
+        name: 'fat',
+        label: 'Fat (g)',
+        type: 'number',
+    },
+    {
+        name: 'saturated_fat',
+        label: 'Saturated Fat (g)',
+        type: 'number',
+    },
+    {
+        name: 'trans_fat',
+        label: 'Trans Fat (g)',
+        type: 'number',
+    },
+    {
+        name: 'cholesterol',
+        label: 'Cholesterol (g)',
+        type: 'number',
+    },
+    {
+        name: 'carbohydrates',
+        label: 'Carbohydrates (g)',
+        type: 'number',
+    },
+    {
+        name: 'dietary_fiber',
+        label: 'Dietary Fiber (g)',
+        type: 'number',
+    },
+    {
+        name: 'sugars',
+        label: 'Sugars (g)',
+        type: 'number',
+    },
+    {
+        name: 'added_sugars',
+        label: 'Added Sugars (g)',
+        type: 'number',
+    },
+    {
+        name: 'sodium',
+        label: 'Sodium (g)',
+        type: 'number',
+    },
+    {
+        name: 'vitamin_a',
+        label: 'Vitamin A (g)',
+        type: 'number',
+    },
+    {
+        name: 'vitamin_c',
+        label: 'Vitamin C (g)',
+        type: 'number',
+    },
+    {
+        name: 'vitamin_d',
+        label: 'Vitamin D (g)',
+        type: 'number',
+    },
+    {
+        name: 'calcium',
+        label: 'Calcium (g)',
+        type: 'number',
+    },
+    {
+        name: 'iron',
+        label: 'Iron (g)',
+        type: 'number',
+    },
+    {
+        name: 'potassium',
+        label: 'Potassium (g)',
+        type: 'number',
+    },
+    {
+        name: 'glycemic_index',
+        label: 'Glycemic Index',
+        type: 'select',
+        options: [
+            {
+                name: 'low',
+                label: 'Low (≤ 55)',
+            },
+            {
+                name: 'medium',
+                label: 'Medium (56–69)',
+            },
+            {
+                name: 'high',
+                label: 'High (≥ 70)',
+            },
+        ]
+    },
+];
 
 </script>
 
@@ -135,15 +282,31 @@ const savingActionChanged = (newVal) => {
 
                     <TabsContent value="Nutrition">
                         <div class="flex flex-col gap-y-3">
-                            <div class="space-y-1">
-                                <Label for="saturated_fat">Saturated Fat (g)</Label>
-                                <Input id="saturated_fat" v-model="form.saturated_fat" type="number" />
-                                <InputError class="mt-2" :message="form.errors.saturated_fat" />
-                            </div>
-                            <div class="space-y-1">
-                                <Label for="trans_fat">Trans Fat (g)</Label>
-                                <Input id="trans_fat" v-model="form.trans_fat" type="number" />
-                                <InputError class="mt-2" :message="form.errors.trans_fat" />
+                            <div class="space-y-1" v-for="field in nutritionFields">
+                                <Label for="field.name" >{{ field.label }}</Label>
+
+                                <Select
+                                    v-if="field.type ==='select'"
+                                    v-model="form[field.name]"
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select an option" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem v-for="option in field.options" :value="option.name" :key="option.name">
+                                        {{ option.label }}
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Input
+                                    v-else
+                                    id="field.name"
+                                    v-model="form[field.name]"
+                                    :type="field.type"
+                                />
+
+                                <InputError class="mt-2" :message="form.errors[field.name]" />
                             </div>
                         </div>
                     </TabsContent>
