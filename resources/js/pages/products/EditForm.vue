@@ -2,20 +2,18 @@
 import { useForm } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
-// import { Input } from '@/components/ui/input'
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '@/components/ui/select'
-// import InputError from '@/components/InputError.vue';
-// import { Label } from '@/components/ui/label'
-// import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
+import InputError from '@/components/InputError.vue';
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { CircleX } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
-
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs'
 
 const {product} = defineProps<{
     product?: object;
@@ -89,7 +87,7 @@ const savingActionChanged = (newVal) => {
 
 <template>
     <form method="POST" action="" class="block w-full pb-20" @submit.prevent="submit">
-        <div class="flex flex-row justify-between gap-8 pb-5">
+        <div class="flex flex-row">
             <div class="flex items-center ml-auto gap-2">
                 <Button
                     v-if="product"
@@ -107,6 +105,45 @@ const savingActionChanged = (newVal) => {
                     v-on:changed="savingActionChanged"
                 />
             </div>
+        </div>
+
+        <div>
+            <Tabs default-value="General" class="w-[400px]">
+                <TabsList class="grid w-full grid-cols-2">
+                  <TabsTrigger value="General">
+                    General
+                  </TabsTrigger>
+                  <TabsTrigger value="Nutrition">
+                    Nutrition
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="General">
+                    <div class="flex flex-col gap-y-3">
+                        <div class="space-y-1">
+                            <Label for="name">Name</Label>
+                            <Input id="name" default-value="Pedro Duarte" />
+                        </div>
+                        <div class="space-y-1">
+                            <Label for="description">Description</Label>
+                            <Textarea id="description" rows="5" />
+                        </div>
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="Nutrition">
+                    <div class="flex flex-col gap-y-3">
+                        <div class="space-y-1">
+                            <Label for="saturated_fat">Saturated Fat (g)</Label>
+                            <Input id="saturated_fat" type="number" />
+                        </div>
+                        <div class="space-y-1">
+                            <Label for="trans_fat">Trans Fat (g)</Label>
+                            <Input id="trans_fat" type="number" />
+                        </div>
+                    </div>
+                </TabsContent>
+              </Tabs>
         </div>
     </form>
 </template>
