@@ -3,7 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import InputError from '@/components/InputError.vue';
+// import InputError from '@/components/InputError.vue';
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { CircleX } from 'lucide-vue-next';
@@ -123,11 +123,13 @@ const savingActionChanged = (newVal) => {
                         <div class="flex flex-col gap-y-3">
                             <div class="space-y-1">
                                 <Label for="name">Name</Label>
-                                <Input id="name" default-value="Pedro Duarte" />
+                                <Input id="name" v-model="form.name" />
+                                <InputError class="mt-2" :message="form.errors.name" />
                             </div>
                             <div class="space-y-1">
                                 <Label for="description">Description</Label>
-                                <Textarea id="description" rows="5" />
+                                <Textarea id="description" v-model="form.description" rows="5" />
+                                <InputError class="mt-2" :message="form.errors.description" />
                             </div>
                         </div>
                     </TabsContent>
@@ -136,11 +138,13 @@ const savingActionChanged = (newVal) => {
                         <div class="flex flex-col gap-y-3">
                             <div class="space-y-1">
                                 <Label for="saturated_fat">Saturated Fat (g)</Label>
-                                <Input id="saturated_fat" type="number" />
+                                <Input id="saturated_fat" v-model="form.saturated_fat" type="number" />
+                                <InputError class="mt-2" :message="form.errors.saturated_fat" />
                             </div>
                             <div class="space-y-1">
                                 <Label for="trans_fat">Trans Fat (g)</Label>
-                                <Input id="trans_fat" type="number" />
+                                <Input id="trans_fat" v-model="form.trans_fat" type="number" />
+                                <InputError class="mt-2" :message="form.errors.trans_fat" />
                             </div>
                         </div>
                     </TabsContent>
