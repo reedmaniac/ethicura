@@ -91,17 +91,16 @@ const savingActionChanged = (newVal) => {
             <div class="flex items-center ml-auto gap-2">
                 <Button
                     v-if="product"
-                    :product="product"
                     variant="destructive"
                     :disabled="form.processing"
-                    :classes="{'opacity-50': form.processing}"
+                    :class="{'opacity-50': form.processing}"
                 >
                     <CircleX class="h-4 w-4" />
                     Delete
                 </Button>
                 <SaveButton
                     :disabled="form.processing"
-                    :classes="{'opacity-50': form.processing}"
+                    :class="{'opacity-50': form.processing}"
                     v-on:changed="savingActionChanged"
                 />
             </div>
