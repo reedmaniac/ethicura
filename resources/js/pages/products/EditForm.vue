@@ -282,7 +282,7 @@ const nutritionFields: FieldItem[] = [
 
                     <TabsContent value="Nutrition">
                         <div class="flex flex-col gap-y-3">
-                            <div class="space-y-1" v-for="field in nutritionFields">
+                            <div class="space-y-1" v-for="field in nutritionFields" :key="field.name">
                                 <Label for="field.name" >{{ field.label }}</Label>
 
                                 <Select
