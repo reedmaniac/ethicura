@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Corporation;
 use App\Models\Product;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductsController extends Controller
 {
@@ -30,6 +32,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        Inertia::share('product_save_button_option', auth()->user()->product_save_button_option);
     }
 
     /**
@@ -37,6 +40,14 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        // @todo
+        $product = new Product();
+
+        return redirect($this->saveRedirect($request, $product))
+            ->with(
+                'message',
+                'Product "' . $product->name . '" has been created'
+            );
     }
 
     /**
@@ -44,6 +55,8 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
+        Inertia::share('product_save_button_option', auth()->user()->product_save_button_option);
+
         return Inertia::render(
             'products/Edit',
             [
@@ -58,6 +71,13 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        // @todo
+
+        return redirect($this->saveRedirect($request, $product))
+            ->with(
+                'message',
+                'Product "' . $product->name . '" has been updated'
+            );
     }
 
     /**
@@ -65,5 +85,47 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
+    }
+
+    /**
+     * Handle the Saving of the Save Button Redirect Option and Return Redirect
+     * - Abstracted for use with corporation via trait later
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @return \Illuminate\Http\Response
+     */
+    private function saveRedirect(Request $request, Model $model)
+    {
+        $supported_models = ['product', 'corporation'];
+        $options = ['listing', 'continue_editing', 'create_another'];
+        $model_class = Str::lower(class_name($model));
+
+        if (!in_array($model_class, $supported_models)) {
+            throw new \Exception('Invalid model class for save redirect');
+        }
+
+        $column_name = $model_class . '_save_button_option';
+        $option_value = ($request->has('save_button_option') && in_array($request->input('save_button_option'), $options))
+            ? $request->input('save_button_option')
+            : auth()->user()->$column_name;
+
+        if ($option_value !== auth()->user()->$column_name) {
+            auth()->user()->$column_name = $option_value;
+            auth()->user()->save();
+        }
+
+        switch ($option_value) {
+            case 'continue_editing':
+                return route($model_class . '.edit', [$model_class => $model->id]);
+                break;
+            case 'create_another':
+                return route($model_class . '.create');
+                break;
+        }
+
+        // Default to listing
+        // If 'redirect' is specified, it is usually back to a search results
+        return $request->input('redirect') ?? route($model_class . '.index');
     }
 }

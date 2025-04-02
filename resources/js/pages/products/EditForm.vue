@@ -13,7 +13,9 @@ import { Button } from '@/components/ui/button'
 // import InputError from '@/components/InputError.vue';
 // import { Label } from '@/components/ui/label'
 // import { Textarea } from '@/components/ui/textarea'
-import { CircleX, ScanBarcode } from 'lucide-vue-next';
+import { CircleX } from 'lucide-vue-next';
+import SaveButton from './components/SaveButton.vue';
+
 
 const {product} = defineProps<{
     product?: object;
@@ -32,7 +34,7 @@ const formStub = {
     packaging_ids: [],
     editors_note: '',
     status: 'draft',
-    redirect: null,
+    save_button_option: null,
 };
 
 if (product) {
@@ -78,6 +80,10 @@ const submit = () => {
     }
 };
 
+const savingActionChanged = (newVal) => {
+    form.save_button_option = newVal;
+};
+
 </script>
 
 
@@ -90,20 +96,16 @@ const submit = () => {
                     :product="product"
                     variant="destructive"
                     :disabled="form.processing"
-                    :buttonClasses="{'opacity-50': form.processing}"
+                    :classes="{'opacity-50': form.processing}"
                 >
                     <CircleX class="h-4 w-4" />
                     Delete
                 </Button>
-                <Button
-                    type="submit"
-                    variant="default"
+                <SaveButton
                     :disabled="form.processing"
-                    :buttonClasses="{'opacity-50': form.processing}"
-                >
-                    <ScanBarcode class="h-4 w-4" />
-                    {{ product ? 'Update' : 'Save' }}
-                </Button>
+                    :classes="{'opacity-50': form.processing}"
+                    v-on:changed="savingActionChanged"
+                />
             </div>
         </div>
     </form>
