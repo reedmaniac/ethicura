@@ -25,10 +25,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-const {product} = defineProps<{
+const { product, cloned_product } = defineProps<{
     product?: object;
     corporations: array;
-    cloned_bulletin?: object;
+    cloned_product?: object;
 }>();
 
 const emit = defineEmits(['created', 'updated']);
@@ -72,9 +72,10 @@ if (product) {
         ...product,
         editors_note: '',
     }
-} else if (cloned_bulletin) {
+} else if (cloned_product) {
     formParams = {
         ...formStub,
+        ...cloned_product,
         name: '',
         description: '',
         editors_note: '',

@@ -7,17 +7,41 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Corporation;
 use App\Models\Product;
+use App\Services\ProductsService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\UrlGenerator;
 
 class ProductsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * The ProductsService
+     *
+     * @var ProductsService
      */
-    public function index()
+    protected $products_service;
+
+    /**
+     * Constructor
+     *
+     * @param ProductsService $products_service
+     * @return void
+     */
+    public function __construct(ProductsService $products_service)
+    {
+        $this->products_service = $products_service;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Inertia\Response
+     */
+    public function index(): InertiaResponse
     {
         return Inertia::render(
             'products/Products',
@@ -31,19 +55,35 @@ class ProductsController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Inertia\Response
      */
-    public function create()
+    public function create(Request $request): InertiaResponse
     {
         Inertia::share('product_save_button_option', auth()->user()->product_save_button_option);
+
+        return Inertia::render(
+            'products/Create',
+            [
+                'cloned_product' => ($request->has('clone_id'))
+                    ? Product::findOrFail($request->input('clone_id'))->load('certifications', 'packaging')
+                    : null,
+            ]
+        );
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param StoreProductRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): RedirectResponse
     {
-        // @todo
-        $product = new Product();
+        $product = $this->products_service->create(
+            $request->only(array_keys($request->rules()))
+        );
 
         return redirect($this->saveRedirect($request, $product))
             ->with(
@@ -54,8 +94,11 @@ class ProductsController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param \App\Models\Product $product
+     * @return \Inertia\Response
      */
-    public function edit(Product $product)
+    public function edit(Product $product): InertiaResponse
     {
         Inertia::share('product_save_button_option', auth()->user()->product_save_button_option);
 
@@ -70,10 +113,17 @@ class ProductsController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param UpdateProductRequest
+     * @param \App\Models\Product
+     * @return RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        // @todo
+        $product = $this->products_service->update(
+            $product,
+            $request->only(array_keys($request->rules())),
+        );
 
         return redirect($this->saveRedirect($request, $product))
             ->with(
@@ -95,9 +145,9 @@ class ProductsController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\UrlGenerator
      */
-    private function saveRedirect(Request $request, Model $model)
+    private function saveRedirect(Request $request, Model $model): UrlGenerator
     {
         $supported_models = ['product', 'corporation'];
         $options = ['listing', 'continue_editing', 'create_another'];

@@ -12,7 +12,7 @@ import {
 import { computed } from 'vue'
 
 import { Ellipsis } from 'lucide-vue-next';
-
+import { Link } from '@inertiajs/vue3';
 import { productSchema } from '../data/schema'
 
 interface DataTableRowActionsProps {
@@ -20,8 +20,14 @@ interface DataTableRowActionsProps {
 }
 const props = defineProps<DataTableRowActionsProps>()
 
-const product = computed(() => productSchema.parse(props.row.original))
+const product = computed(() => productSchema.parse(props.row.original));
 
+const productEditLink = route('dashboard.products.edit', { product: product.value.id });
+const productCloneLink = route('dashboard.products.create', { clone_id: product.value.id });
+
+const deleteFlow = () => {
+  alert('@todo');
+}
 
 </script>
 
@@ -37,11 +43,10 @@ const product = computed(() => productSchema.parse(props.row.original))
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" class="w-[160px]">
-      <DropdownMenuItem :aria-label="`Edit ${product.name}`">Edit</DropdownMenuItem>
-      <DropdownMenuItem>Make a copy</DropdownMenuItem>
-      <DropdownMenuItem>
+      <DropdownMenuItem><Link :aria-label="`Edit ${product.name}`" :href="productEditLink">Edit</Link></DropdownMenuItem>
+      <DropdownMenuItem><Link :aria-label="`Clone ${product.name}`" :href="productCloneLink">Make a copy</Link></DropdownMenuItem>
+      <DropdownMenuItem v-on:click.prevent="deleteFlow">
         Delete
-        <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

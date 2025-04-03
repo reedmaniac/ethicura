@@ -8,6 +8,7 @@ use App\Models\Corporation;
 use App\Services\ProductsService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Http\RedirectResponse;
 
 class DashboardController extends Controller
 {
@@ -50,7 +51,7 @@ class DashboardController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function storeQuickProduct(StoreQuickProductRequest $request)
+    public function storeQuickProduct(StoreQuickProductRequest $request): RedirectResponse
     {
         $product = $this->products_service->create($request->all());
 
