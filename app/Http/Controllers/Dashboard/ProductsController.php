@@ -9,12 +9,12 @@ use App\Models\Corporation;
 use App\Models\Product;
 use App\Services\ProductsService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\UrlGenerator;
 
 class ProductsController extends Controller
 {
