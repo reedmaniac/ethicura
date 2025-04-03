@@ -9,7 +9,6 @@ defineProps<{
     corporations: array;
 }>();
 
-
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -20,25 +19,18 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/products',
     },
 ];
-
 </script>
-
 
 <template>
     <Head title="Edit Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-          <div class="flex items-center justify-between space-y-2">
-              <h2 class="text-2xl font-bold tracking-tight">
-                Editing: {{ product.name }}
-              </h2>
-          </div>
+            <div class="flex items-center justify-between space-y-2">
+                <h2 class="text-2xl font-bold tracking-tight">Editing: {{ product.name }}</h2>
+            </div>
 
-            <ProductEditForm
-                :product="product"
-                :corporations="corporations"
-            />
+            <ProductEditForm :product="product" :corporations="corporations" />
         </div>
     </AppLayout>
 </template>

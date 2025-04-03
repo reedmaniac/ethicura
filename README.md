@@ -87,8 +87,9 @@ To connect to your application's Redis database from your local machine, you may
 
 ### Code Styling (aka Linting)
 
-- Run `./vendor/bin/pint` within the Sail/Docker container and it will take care of the backend.
-- Run `npm run lint` within the Sail/Docker container and it will check the frontend.
+- Run `./vendor/bin/pint` and it will take care of the backend.
+- Run `npm run lint` and it will check the frontend.
+- Run `npm run format` and it will prettify the frontend
 
 ### Running Tests
 

@@ -114,8 +114,8 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProductRequest
-     * @param \App\Models\Product
+     * @param UpdateProductRequest $request
+     * @param \App\Models\Product $product
      * @return RedirectResponse
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
@@ -134,6 +134,8 @@ class ProductsController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Product $product
      */
     public function destroy(Product $product)
     {

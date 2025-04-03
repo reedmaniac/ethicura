@@ -1,29 +1,17 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, emit } from 'vue';
+import { emit, onBeforeUnmount, onMounted } from 'vue';
 
-import { useForm } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { router, useForm } from '@inertiajs/vue3';
 // import InputError from '@/components/InputError.vue';
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { type FieldItem } from '@/types';
 import { CircleX } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
-import { type FieldItem } from '@/types';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
 const { product, cloned_product } = defineProps<{
     product?: object;
@@ -71,7 +59,7 @@ if (product) {
     formParams = {
         ...product,
         editors_note: '',
-    }
+    };
 } else if (cloned_product) {
     formParams = {
         ...formStub,
@@ -80,23 +68,23 @@ if (product) {
         description: '',
         editors_note: '',
         status: 'draft',
-    }
+    };
 } else {
     formParams = formStub;
 }
 
 const form = useForm(formParams);
 
-const beforeUnloadListener = event => {
+const beforeUnloadListener = (event) => {
     if (form.isDirty === true) {
         event.preventDefault();
-        return confirm('Are you sure you want to navigate away? You may have unsaved changes.')
+        return confirm('Are you sure you want to navigate away? You may have unsaved changes.');
     }
 };
 
 router.on('before', (event) => {
     beforeUnloadListener(event);
-})
+});
 
 onMounted(() => {
     window.addEventListener('beforeunload', beforeUnloadListener, { capture: true });
@@ -243,43 +231,38 @@ const nutritionFields: FieldItem[] = [
                 name: 'high',
                 label: 'High (≥ 70)',
             },
-        ]
+        ],
     },
 ];
-
 </script>
-
 
 <template>
     <form method="POST" action="" class="block w-full pb-20" @submit.prevent="submit">
         <div class="flex flex-row">
-            <div class="flex items-center ml-auto gap-2">
-                <Button
-                    v-if="product"
-                    variant="destructive"
-                    :disabled="form.processing"
-                    :class="{'opacity-50': form.processing, 'cursor' : true}"
-                >
+            <div class="ml-auto flex items-center gap-2">
+                <Button v-if="product" variant="destructive" :disabled="form.processing" :class="{ 'opacity-50': form.processing, cursor: true }">
                     <CircleX class="h-4 w-4" />
                     Delete
                 </Button>
-                <SaveButton
-                    :disabled="form.processing"
-                    :class="{'opacity-50': form.processing}"
-                    v-on:changed="savingActionChanged"
-                />
+                <SaveButton :disabled="form.processing" :class="{ 'opacity-50': form.processing }" v-on:changed="savingActionChanged" />
             </div>
         </div>
 
         <div class="w-full">
             <Tabs default-value="General">
                 <TabsList class="w-full justify-start rounded-none border-b bg-transparent p-0">
-                  <TabsTrigger value="General" class="text-base relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
-                    General
-                  </TabsTrigger>
-                  <TabsTrigger value="Nutrition" class="text-base relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
-                    Nutrition
-                  </TabsTrigger>
+                    <TabsTrigger
+                        value="General"
+                        class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 text-base font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
+                    >
+                        General
+                    </TabsTrigger>
+                    <TabsTrigger
+                        value="Nutrition"
+                        class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 text-base font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
+                    >
+                        Nutrition
+                    </TabsTrigger>
                 </TabsList>
 
                 <div class="max-w-xl">
@@ -301,35 +284,27 @@ const nutritionFields: FieldItem[] = [
                     <TabsContent value="Nutrition">
                         <div class="flex flex-col gap-y-3">
                             <div class="space-y-1" v-for="field in nutritionFields" :key="field.name">
-                                <Label for="field.name" >{{ field.label }}</Label>
+                                <Label for="field.name">{{ field.label }}</Label>
 
-                                <Select
-                                    v-if="field.type ==='select'"
-                                    v-model="form[field.name]"
-                                >
+                                <Select v-if="field.type === 'select'" v-model="form[field.name]">
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select an option" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem v-for="option in field.options" :value="option.name" :key="option.name">
-                                        {{ option.label }}
+                                            {{ option.label }}
                                         </SelectItem>
                                     </SelectContent>
                                 </Select>
 
-                                <Input
-                                    v-else
-                                    id="field.name"
-                                    v-model="form[field.name]"
-                                    :type="field.type"
-                                />
+                                <Input v-else id="field.name" v-model="form[field.name]" :type="field.type" />
 
                                 <InputError class="mt-2" :message="form.errors[field.name]" />
                             </div>
                         </div>
                     </TabsContent>
                 </div>
-              </Tabs>
+            </Tabs>
         </div>
     </form>
 </template>

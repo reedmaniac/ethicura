@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { ref } from 'vue';
 
 defineProps<{
     status?: string;
@@ -82,21 +82,16 @@ const submit = () => {
                         <a
                             href="#"
                             v-on:click.prevent="toggleShowPassword"
-                            class="hover:!decoration-current text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out dark:decoration-neutral-500"
+                            class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500"
                         >
-                          {{ showPassword ? 'Hide' : 'Show' }}
+                            {{ showPassword ? 'Hide' : 'Show' }}
                         </a>
                     </div>
                 </div>
 
-
                 <div class="flex items-center justify-between">
                     <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox
-                            id="remember"
-                            v-model:checked="form.remember"
-                            :tabindex="0"
-                        />
+                        <Checkbox id="remember" v-model:checked="form.remember" :tabindex="0" />
                         <span>Remember me</span>
                     </Label>
                 </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import HeadingSmall from '@/components/HeadingSmall.vue';
 
 const form = useForm({
     name: '',
@@ -41,7 +41,7 @@ const submit = () => {
                     <InputError :message="form.errors.email" />
                 </div>
 
-                <hr class="h-px my-0 bg-gray-300 border-0 dark:bg-gray-700">
+                <hr class="my-0 h-px border-0 bg-gray-300 dark:bg-gray-700" />
 
                 <div class="grid gap-2">
                     <HeadingSmall

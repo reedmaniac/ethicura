@@ -33,6 +33,7 @@ class DashboardController extends Controller
     /**
      * Show Main Dashboard
      *
+     * @param Request $request
      * @return \Inertia\Response
      */
     public function index(Request $request)
@@ -49,7 +50,8 @@ class DashboardController extends Controller
     /**
      * Store Quick Product Create
      *
-     * @return \Inertia\Response
+     * @param StoreQuickProductRequest $request
+     * @return RedirectResponse
      */
     public function storeQuickProduct(StoreQuickProductRequest $request): RedirectResponse
     {

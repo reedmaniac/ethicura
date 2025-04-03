@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuAction } from '@/components/ui/sidebar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuAction, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { MoreHorizontal } from 'lucide-vue-next';
@@ -29,7 +24,7 @@ const page = usePage<SharedData>();
                     </Link>
                 </SidebarMenuButton>
                 <SidebarMenuAction as="a" v-if="item.actionMenu" :href="item.actionMenu.href" :title="item.actionMenu.title">
-                  <component :is="item.actionMenu.icon" /><span class="sr-only">{{ item.actionMenu.title }}</span>
+                    <component :is="item.actionMenu.icon" /><span class="sr-only">{{ item.actionMenu.title }}</span>
                 </SidebarMenuAction>
                 <DropdownMenu v-else-if="item.dropdownMenus && item.dropdownMenus.length > 0">
                     <DropdownMenuTrigger asChild>

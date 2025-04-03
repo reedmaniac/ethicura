@@ -8,15 +8,16 @@ use App\Http\Resources\Api\CorporationResource;
 use App\Models\Corporation;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CorporationsController extends Controller
 {
     /**
      * List corporations with optional keyword search.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $query = Corporation::with('ethicalLabels');
 
@@ -42,9 +43,9 @@ class CorporationsController extends Controller
      *
      * @param Corporation $corporation the corporation to which the products should belong
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function indexProducts(Request $request, Corporation $corporation)
+    public function indexProducts(Request $request, Corporation $corporation): AnonymousResourceCollection
     {
         $query = $corporation->products()->with('certifications', 'packaging');
 

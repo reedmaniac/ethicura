@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row align-center">
+    <div class="align-center flex flex-row">
         <Button
             variation="secondary"
             type="submit"
@@ -7,16 +7,7 @@
             id="save_option_menu"
             :aria-expanded="showMenu ? 'true' : 'false'"
             aria-haspopup="true"
-            :class="
-                cn(
-                    `
-                    rounded-l
-                    rounded-r-none
-                    min-w-[80px]
-                    `,
-                    props.class,
-                )
-            "
+            :class="cn(`min-w-[80px] rounded-l rounded-r-none`, props.class)"
         >
             <span class="inline">Save</span>
         </Button>
@@ -26,18 +17,7 @@
                 <Button
                     variation="secondary"
                     v-on:click.stop.prevent="showMenu = !showMenu"
-                    :class="
-                        cn(
-                            `
-                            rounded-r
-                            rounded-l-none
-                            border-l
-                            border-l-accent
-                            dark:border-l-muted
-                            `,
-                            props.class,
-                        )
-                    "
+                    :class="cn(`rounded-l-none rounded-r border-l border-l-accent dark:border-l-muted`, props.class)"
                 >
                     <List v-if="action == 'listing'" />
                     <Repeat v-if="action == 'continue_editing'" />
@@ -46,13 +26,9 @@
             </DropdownMenuTrigger>
             <DropdownMenuContent class="w-56">
                 <DropdownMenuLabel>After Saving</DropdownMenuLabel>
-                <DropdownMenuItem
-                    :key="option_name"
-                    v-for="(display_name, option_name) in actionOptions"
-                    v-on:click="saveOptionUpdated(option_name)"
-                >
-                    <Check class="w-4 h-4" v-if="option_name == action" />
-                    <div class="w-4 h-4" v-else />
+                <DropdownMenuItem :key="option_name" v-for="(display_name, option_name) in actionOptions" v-on:click="saveOptionUpdated(option_name)">
+                    <Check class="h-4 w-4" v-if="option_name == action" />
+                    <div class="h-4 w-4" v-else />
                     {{ display_name }}
                 </DropdownMenuItem>
             </DropdownMenuContent>
@@ -61,19 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { usePage } from '@inertiajs/vue3';
-import { List, Repeat, CirclePlus, Check } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Check, CirclePlus, List, Repeat } from 'lucide-vue-next';
 import type { HTMLAttributes } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps<{
     disabled?: boolean;
@@ -96,7 +66,5 @@ const saveOptionUpdated = (newValue) => {
     action.value = newValue;
     page.props.product_save_button_option = newValue;
     emit('changed', newValue);
-}
-
-
+};
 </script>

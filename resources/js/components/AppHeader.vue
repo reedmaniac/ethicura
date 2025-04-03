@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Plus, ScanBarcode, FolderInput, BriefcaseBusiness, FileSpreadsheet, Users } from 'lucide-vue-next';
+import { BookOpen, BriefcaseBusiness, FileSpreadsheet, FolderInput, Plus, ScanBarcode, Users } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -47,7 +47,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Product',
             href: '/dashboard/products/create',
-        }
+        },
     },
     {
         title: 'Categories',
@@ -57,7 +57,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Category',
             href: '/dashboard/categories/create',
-        }
+        },
     },
     {
         title: 'Corporations',
@@ -67,7 +67,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Corporation',
             href: '/dashboard/corporations/create',
-        }
+        },
     },
     {
         title: 'Exports',
@@ -77,7 +77,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Export',
             href: '/dashboard/exports/create',
-        }
+        },
     },
     {
         title: 'Users',
@@ -87,7 +87,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create User',
             href: '/dashboard/users/create',
-        }
+        },
     },
 ];
 

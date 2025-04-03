@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, House, Plus, ScanBarcode, FolderInput, BriefcaseBusiness, FileSpreadsheet, Users } from 'lucide-vue-next';
+import { BookOpen, BriefcaseBusiness, FileSpreadsheet, Folder, FolderInput, House, Plus, ScanBarcode, Users } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -22,7 +22,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Product',
             href: '/dashboard/products/create',
-        }
+        },
     },
     {
         title: 'Categories',
@@ -32,7 +32,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Category',
             href: '/dashboard/categories/create',
-        }
+        },
     },
     {
         title: 'Corporations',
@@ -42,7 +42,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Corporation',
             href: '/dashboard/corporations/create',
-        }
+        },
     },
     {
         title: 'Exports',
@@ -52,7 +52,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create Export',
             href: '/dashboard/exports/create',
-        }
+        },
     },
     {
         title: 'Users',
@@ -62,7 +62,7 @@ const mainNavItems: NavItem[] = [
             icon: Plus,
             title: 'Create User',
             href: '/dashboard/users/create',
-        }
+        },
     },
 ];
 

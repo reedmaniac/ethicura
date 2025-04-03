@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
+import { Head, Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -37,25 +37,10 @@ import AppLogoIcon from '@/components/AppLogoIcon.vue';
         <div class="duration-750 starting:opacity-0 flex w-full items-center justify-center opacity-100 transition-opacity lg:grow">
             <main class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded lg:max-w-2xl lg:flex-row">
                 <div
-                    class="
-                        flex
-                        flex-col
-                        items-center
-                        gap-x-4
-                        gap-y-2
-                        rounded
-                        bg-white
-                        w-full
-                        p-6
-                        pb-8
-                        shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)]
-                        dark:bg-[#161615]
-                        dark:text-[#EDEDEC]
-                        dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]
-                    "
+                    class="flex w-full flex-col items-center gap-x-4 gap-y-2 rounded bg-white p-6 pb-8 shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"
                 >
-                    <div class="flex aspect-square size-12 lg:size-16 items-center justify-center rounded-md">
-                        <AppLogoIcon class="size-16 lg:size-16 " />
+                    <div class="flex aspect-square size-12 items-center justify-center rounded-md lg:size-16">
+                        <AppLogoIcon class="size-16 lg:size-16" />
                     </div>
                     <div class="flex-1 text-left text-sm">
                         <span class="mb-0.5 truncate font-semibold leading-none">Epicura - An Ethical Consumerism Application</span>

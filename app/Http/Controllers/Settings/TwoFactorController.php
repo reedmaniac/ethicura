@@ -30,7 +30,7 @@ class TwoFactorController extends Controller
     /**
      * Validate the two factor authentication state for the request.
      *
-     * @param  \Illuminate\Http\Request
+     * @param  \Illuminate\Http\Request $request
      * @return void
      */
     protected function validateTwoFactorAuthenticationState(Request $request)
