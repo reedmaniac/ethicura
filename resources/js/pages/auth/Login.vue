@@ -52,7 +52,7 @@ const submit = () => {
                         type="email"
                         required
                         autofocus
-                        :tabindex="1"
+                        :tabindex="0"
                         autocomplete="email"
                         v-model="form.email"
                         placeholder="email@example.com"
@@ -63,7 +63,7 @@ const submit = () => {
                 <div class="grid gap-2">
                     <div class="flex items-center justify-between">
                         <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
+                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="0">
                             Forgot password?
                         </TextLink>
                     </div>
@@ -71,7 +71,7 @@ const submit = () => {
                         id="password"
                         :type="showPassword ? 'text' : 'password'"
                         required
-                        :tabindex="2"
+                        :tabindex="0"
                         autocomplete="current-password"
                         v-model="form.password"
                         placeholder="Password"
@@ -90,14 +90,18 @@ const submit = () => {
                 </div>
 
 
-                <div class="flex items-center justify-between" :tabindex="4">
+                <div class="flex items-center justify-between">
                     <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model:checked="form.remember" :tabindex="4" />
+                        <Checkbox
+                            id="remember"
+                            v-model:checked="form.remember"
+                            :tabindex="0"
+                        />
                         <span>Remember me</span>
                     </Label>
                 </div>
 
-                <Button type="submit" class="mt-4 w-full" :tabindex="6" :disabled="form.processing">
+                <Button type="submit" class="mt-4 w-full" :tabindex="0" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                     Log in
                 </Button>
@@ -105,7 +109,7 @@ const submit = () => {
 
             <div class="text-center text-sm text-muted-foreground">
                 Don't have an account?
-                <TextLink :href="route('register')" :tabindex="6">Sign up</TextLink>
+                <TextLink :href="route('register')" :tabindex="0">Sign up</TextLink>
             </div>
         </form>
     </AuthBase>
