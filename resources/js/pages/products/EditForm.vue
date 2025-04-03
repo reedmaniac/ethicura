@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount } from 'vue';
+
 import { useForm } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3'
 import { Button } from '@/components/ui/button'
@@ -84,13 +86,26 @@ if (product) {
 
 const form = useForm(formParams);
 
-router.on('before', (event) => {
-    if (form.form.isDirty === true) {
+const beforeUnloadListener = event => {
+    if (form.isDirty === true) {
         event.preventDefault();
         return confirm('Are you sure you want to navigate away? You may have unsaved changes.')
     }
-})
+};
 
+let removeInertiaBeforeListener = null;
+
+onMounted(() => {
+    window.addEventListener('beforeunload', beforeUnloadListener, { capture: true });
+    removeInertiaBeforeListener = router.on('before', event => {
+        if (form.isDirty && event.detail.visit.method === 'get') {
+            return confirm('You have unsaved changes, are you sure you want to leave this page?');
+        }
+    });
+});
+onBeforeUnmount(() => {
+    window.removeEventListener('beforeunload', beforeUnloadListener, { capture: true });
+});
 
 const submit = () => {
     if (product) {
