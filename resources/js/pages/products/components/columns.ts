@@ -32,7 +32,8 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Name' }),
 
     cell: ({ row }) => {
-      return h('div', { class: 'flex space-x-2' }, [
+      const productEditLink = route('dashboard.products.edit', { product: row.getValue('id') });
+      return h('a', { class: 'flex space-x-2', href: productEditLink}, [
         h('span', { class: 'max-w-[500px] truncate font-semibold' }, row.getValue('name')),
       ])
     },
