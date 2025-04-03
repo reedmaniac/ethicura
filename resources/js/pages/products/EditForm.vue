@@ -214,6 +214,10 @@ const nutritionFields: FieldItem[] = [
         type: 'select',
         options: [
             {
+                name: null,
+                label: 'None',
+            },
+            {
                 name: 'low',
                 label: 'Low (≤ 55)',
             },
