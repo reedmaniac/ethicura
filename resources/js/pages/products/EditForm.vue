@@ -93,23 +93,21 @@ const beforeUnloadListener = event => {
     }
 };
 
-let removeInertiaBeforeListener = null;
+router.on('before', (event) => {
+    beforeUnloadListener(event);
+})
 
 onMounted(() => {
     window.addEventListener('beforeunload', beforeUnloadListener, { capture: true });
-    removeInertiaBeforeListener = router.on('before', event => {
-        if (form.isDirty && event.detail.visit.method === 'get') {
-            return confirm('You have unsaved changes, are you sure you want to leave this page?');
-        }
-    });
 });
+
 onBeforeUnmount(() => {
     window.removeEventListener('beforeunload', beforeUnloadListener, { capture: true });
 });
 
 const submit = () => {
     if (product) {
-        form.post(route('product.store'), {
+        form.put(route('product.update', { product: product.id }), {
             onSuccess: () => {
                 emit('updated');
             },
@@ -259,7 +257,7 @@ const nutritionFields: FieldItem[] = [
                     v-if="product"
                     variant="destructive"
                     :disabled="form.processing"
-                    :class="{'opacity-50': form.processing}"
+                    :class="{'opacity-50': form.processing, 'cursor' : true}"
                 >
                     <CircleX class="h-4 w-4" />
                     Delete
