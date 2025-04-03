@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Services\ProductsService;
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
-use App\Models\Corporation;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuickProductRequest;
+use App\Models\Corporation;
+use App\Services\ProductsService;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {

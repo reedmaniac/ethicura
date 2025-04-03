@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Api;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use App\Http\Resources\Api\CorporationProductResource;
+use App\Http\Resources\Api\CorporationResource;
 use App\Models\Corporation;
 use App\Models\Product;
-use App\Http\Resources\Api\CorporationResource;
-use App\Http\Resources\Api\CorporationProductResource;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CorporationsTest extends TestCase
 {

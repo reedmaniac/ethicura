@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\CorporationResource;
 use App\Http\Resources\Api\CorporationProductResource;
+use App\Http\Resources\Api\CorporationResource;
 use App\Models\Corporation;
 use App\Models\Product;
 use Illuminate\Http\Request;

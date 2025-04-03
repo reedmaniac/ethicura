@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Corporation;
 use App\Models\Product;
-use Inertia\Inertia;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ProductsController extends Controller
 {
@@ -99,7 +101,7 @@ class ProductsController extends Controller
     {
         $supported_models = ['product', 'corporation'];
         $options = ['listing', 'continue_editing', 'create_another'];
-        $model_class = Str::lower(class_name($model));
+        $model_class = Str::lower((new \ReflectionClass($model))->getShortName());
 
         if (!in_array($model_class, $supported_models)) {
             throw new \Exception('Invalid model class for save redirect');
@@ -117,15 +119,15 @@ class ProductsController extends Controller
 
         switch ($option_value) {
             case 'continue_editing':
-                return route($model_class . '.edit', [$model_class => $model->id]);
+                return route('dashboard.' . Str::plural($model_class) . '.edit', [$model_class => $model->id]);
                 break;
             case 'create_another':
-                return route($model_class . '.create');
+                return route('dashboard.' . Str::plural($model_class) . '.create');
                 break;
         }
 
         // Default to listing
         // If 'redirect' is specified, it is usually back to a search results
-        return $request->input('redirect') ?? route($model_class . '.index');
+        return $request->input('redirect') ?? route('dashboard.' . Str::plural($model_class) . '.index');
     }
 }

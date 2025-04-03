@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
+use Laravel\Fortify\Features;
 
 class TwoFactorController extends Controller
 {

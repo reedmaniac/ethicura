@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, onBeforeUnmount, emit } from 'vue';
 
 import { useForm } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3'
@@ -31,7 +31,7 @@ const {product} = defineProps<{
     cloned_bulletin?: object;
 }>();
 
-defineEmits(['created', 'updated']);
+const emit = defineEmits(['created', 'updated']);
 
 let formParams = null;
 const formStub = {
@@ -107,13 +107,13 @@ onBeforeUnmount(() => {
 
 const submit = () => {
     if (product) {
-        form.put(route('product.update', { product: product.id }), {
+        form.put(route('dashboard.products.update', { product: product.id }), {
             onSuccess: () => {
                 emit('updated');
             },
         });
     } else {
-        form.post(route('product.store'), {
+        form.post(route('dashboard.products.store'), {
             onSuccess: () => {
                 emit('created');
             },
@@ -270,7 +270,7 @@ const nutritionFields: FieldItem[] = [
             </div>
         </div>
 
-        <div class="w-full mt-[-1.8em]">
+        <div class="w-full">
             <Tabs default-value="General">
                 <TabsList class="w-full justify-start rounded-none border-b bg-transparent p-0">
                   <TabsTrigger value="General" class="text-base relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">

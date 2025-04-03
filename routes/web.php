@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\Dashboard\ProductsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,9 +10,9 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('dashboard/quick-product', [DashboardController::class, 'storeQuickProduct'])->name('dashboard.quick-product');
+Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::post('quick-product', [DashboardController::class, 'storeQuickProduct'])->name('quick-product');
 
     Route::resource('products', ProductsController::class)->except('show');
 });

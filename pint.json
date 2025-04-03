@@ -11,6 +11,7 @@
         },
         "mb_str_functions": true,
         "no_empty_comment": true,
+        "ordered_imports": true,
         "single_trait_insert_per_statement": true,
         "strict_comparison": true,
         "trailing_comma_in_multiline": true
