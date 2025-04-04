@@ -30,7 +30,7 @@ function handleChange(newVal) {
   <Combobox v-model="value" by="name" v-on:update:modelValue="handleChange">
     <ComboboxAnchor as-child>
       <ComboboxTrigger as-child>
-        <Button variant="outline" class="justify-between">
+        <Button variant="outline" class="justify-between font-normal">
           {{ value?.name ?? 'Select corporation' }}
           <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
