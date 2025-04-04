@@ -39,4 +39,9 @@ export interface User {
     updated_at: string;
 }
 
+export interface Corporation {
+  id: number
+  name: string
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

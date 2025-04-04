@@ -24,10 +24,10 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'corporation_id' => 'required|exists:corporations,id',
+            'corporation_id' => 'required_if:status,published|exists:corporations,id',
             'status' => 'required|in:draft,published',
 
-            'barcode' => 'nullable|string|unique:products,barcode|max:255',
+            'barcode' => 'sometimes|nullable|string|unique:products,barcode|max:255',
 
             'saturated_fat' => 'nullable|numeric|min:0',
             'trans_fat' => 'nullable|numeric|min:0',

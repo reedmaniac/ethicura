@@ -66,6 +66,7 @@ class ProductsController extends Controller
         return Inertia::render(
             'products/Create',
             [
+                'corporations' => Corporation::select('name', 'id')->orderBy('name')->get(),
                 'cloned_product' => ($request->has('clone_id'))
                     ? Product::findOrFail($request->input('clone_id'))->load('certifications', 'packaging')
                     : null,
@@ -147,9 +148,9 @@ class ProductsController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Database\Eloquent\Model $model
-     * @return \Illuminate\Routing\UrlGenerator
+     * @return string
      */
-    private function saveRedirect(Request $request, Model $model): UrlGenerator
+    private function saveRedirect(Request $request, Model $model): string
     {
         $supported_models = ['product', 'corporation'];
         $options = ['listing', 'continue_editing', 'create_another'];

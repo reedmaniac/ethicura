@@ -4,14 +4,16 @@ import { emit, onBeforeUnmount, onMounted } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { router, useForm } from '@inertiajs/vue3';
-// import InputError from '@/components/InputError.vue';
+import InputError from '@/components/InputError.vue';
 import { Label } from '@/components/ui/label';
+import CorporationComboBox from '@/components/CorporationComboBox.vue';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { type FieldItem } from '@/types';
-import { CircleX } from 'lucide-vue-next';
+import { CircleX, Check, Search } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
+import { statuses } from './data/data';
 
 const { product, cloned_product } = defineProps<{
     product?: object;
@@ -28,6 +30,7 @@ const formStub = {
     corporation_id: null,
     certification_ids: [],
     packaging_ids: [],
+    barcode: null,
 
     saturated_fat: null,
     trans_fat: null,
@@ -67,6 +70,7 @@ if (product) {
         name: '',
         description: '',
         editors_note: '',
+        barcode: null,
         status: 'draft',
     };
 } else {
@@ -76,7 +80,7 @@ if (product) {
 const form = useForm(formParams);
 
 const beforeUnloadListener = (event) => {
-    if (form.isDirty === true) {
+    if (form.isDirty === true && (!event.detail || event.detail.visit.method === 'get')) {
         event.preventDefault();
         return confirm('Are you sure you want to navigate away? You may have unsaved changes.');
     }
@@ -248,6 +252,10 @@ const nutritionFields: FieldItem[] = [
             </div>
         </div>
 
+        <div class="" v-if="form.errors">
+            {{ form.errors }}
+        </div>
+
         <div class="w-full">
             <Tabs default-value="General">
                 <TabsList class="w-full justify-start rounded-none border-b bg-transparent p-0">
@@ -270,13 +278,37 @@ const nutritionFields: FieldItem[] = [
                         <div class="flex flex-col gap-y-3">
                             <div class="space-y-1">
                                 <Label for="name">Name</Label>
-                                <Input id="name" v-model="form.name" />
+                                <Input id="name" v-model="form.name" required />
                                 <InputError class="mt-2" :message="form.errors.name" />
                             </div>
                             <div class="space-y-1">
                                 <Label for="description">Description</Label>
                                 <Textarea id="description" v-model="form.description" rows="5" />
                                 <InputError class="mt-2" :message="form.errors.description" />
+                            </div>
+
+                            <div class="space-y-1">
+                                <Label for="corporation_id">Corporation</Label>
+                                <CorporationComboBox
+                                    :corporations="corporations"
+                                    v-model="form.corporation_id"
+                                />
+                                <InputError class="mt-2" :message="form.errors.corporation_id" />
+                            </div>
+
+                            <div class="space-y-1">
+                                <Label for="status">Status</Label>
+                                <Select id="status" v-model="form.status">
+                                    <SelectTrigger class="w-[180px]">
+                                        <SelectValue placeholder="Select a status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem v-for="status in statuses" :value="status.value" :key="status.value">
+                                            {{ status.label }}
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <InputError class="mt-2" :message="form.errors.status" />
                             </div>
                         </div>
                     </TabsContent>
