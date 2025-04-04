@@ -24,7 +24,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'corporation_id' => 'required_if:status,published|exists:corporations,id',
+            'corporation_id' => 'required|exists:corporations,id',
             'status' => 'required|in:draft,published',
 
             'barcode' => 'sometimes|nullable|string|unique:products,barcode|max:255',

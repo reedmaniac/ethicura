@@ -59,7 +59,7 @@ class DashboardController extends Controller
 
         return redirect(
             route(
-                'products.edit',
+                'dashboard.products.edit',
                 [
                     'product' => $product,
                 ]

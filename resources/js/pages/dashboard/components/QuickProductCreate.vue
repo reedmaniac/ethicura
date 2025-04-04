@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/vue3';
+import CorporationComboBox from '@/components/CorporationComboBox.vue';
+
 
 const { corporations } = defineProps({
     corporations: {
@@ -15,9 +17,9 @@ const { corporations } = defineProps({
 });
 
 const form = useForm({
-    name: 'My First Product',
+    name: '',
     description: '',
-    corporation_id: 7,
+    corporation_id: null,
     status: 'draft',
 });
 
@@ -32,7 +34,7 @@ const submit = () => {
 
 <template>
     <Card>
-        <CardHeader>
+        <CardHeader class="pb-3">
             <CardTitle>Create New Product</CardTitle>
             <CardDescription> Fill out initial fields and continue editing upon submit. </CardDescription>
         </CardHeader>
@@ -53,16 +55,10 @@ const submit = () => {
                 <div>
                     <Label>Corporation</Label>
 
-                    <Select v-model="form.corporation_id" required>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a corporation" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem v-for="corporation in corporations" :value="corporation.id" :key="corporation.id">
-                                {{ corporation.name }}
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <CorporationComboBox
+                        :corporations="corporations"
+                        v-model="form.corporation_id"
+                    />
                     <InputError class="mt-2" :message="form.errors.corporation_id" />
                 </div>
 

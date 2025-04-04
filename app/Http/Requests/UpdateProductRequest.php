@@ -25,7 +25,7 @@ class UpdateProductRequest extends FormRequest
             'name' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
             'barcode' => 'sometimes|required|string|unique:products,barcode,' . $this->route('product')->id . '|max:255',
-            'corporation_id' => 'sometimes|required_if:status,published|exists:corporations,id',
+            'corporation_id' => 'required|exists:corporations,id',
             'status' => 'sometimes|required|in:draft,published',
 
             'saturated_fat' => 'nullable|numeric|min:0',
