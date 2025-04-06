@@ -299,7 +299,7 @@ const nutritionFields: FieldItem[] = [
                                     inputmode="numeric"
                                  />
                                 <InputError class="mt-2" :message="form.errors.barcode" />
-                                <ScansBarcode>
+                                <ScansBarcode v-on:confirmed="val => form.barcode = val">
                                     <Button variant="outline">Use Camera to Scan</Button>
                                 </ScansBarcode>
                             </div>
