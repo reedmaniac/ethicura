@@ -14,6 +14,7 @@ import { type FieldItem } from '@/types';
 import { CircleX, Check, Search } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
 import { statuses } from './data/data';
+import ScansBarcode from '@/components/ScansBarcode.vue';
 
 const { product, cloned_product } = defineProps<{
     product?: object;
@@ -285,6 +286,22 @@ const nutritionFields: FieldItem[] = [
                                 <Label for="description">Description</Label>
                                 <Textarea id="description" v-model="form.description" rows="5" />
                                 <InputError class="mt-2" :message="form.errors.description" />
+                            </div>
+
+                            <div class="space-y-1">
+                                <Label for="barcode">Barcode</Label>
+                                <Input
+                                    id="barcode"
+                                    v-model="form.barcode"
+                                    required
+                                    placeholder="Enter or scan barcode"
+                                    autocomplete="off"
+                                    inputmode="numeric"
+                                 />
+                                <InputError class="mt-2" :message="form.errors.barcode" />
+                                <ScansBarcode>
+                                    <Button variant="outline">Use Camera to Scan</Button>
+                                </ScansBarcode>
                             </div>
 
                             <div class="space-y-1">

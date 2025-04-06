@@ -27,7 +27,12 @@ class StoreProductRequest extends FormRequest
             'corporation_id' => 'required|exists:corporations,id',
             'status' => 'required|in:draft,published',
 
-            'barcode' => 'sometimes|nullable|string|unique:products,barcode|max:255',
+            'barcode' =>
+                'nullable',
+                'string',
+                'max:64',
+                'regex:/^[a-zA-Z0-9\-]+$/',
+                'unique:products,barcode',
 
             'saturated_fat' => 'nullable|numeric|min:0',
             'trans_fat' => 'nullable|numeric|min:0',

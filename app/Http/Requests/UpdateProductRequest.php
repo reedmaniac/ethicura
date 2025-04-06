@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
-            'barcode' => 'sometimes|required|string|unique:products,barcode,' . $this->route('product')->id . '|max:255',
+
+            'barcode' =>
+                'nullable',
+                'string',
+                'max:64',
+                'regex:/^[a-zA-Z0-9\-]+$/',
+                'unique:products,barcode,' . $this->route('product')->id,
+
             'corporation_id' => 'required|exists:corporations,id',
             'status' => 'sometimes|required|in:draft,published',
 
@@ -49,5 +57,18 @@ class UpdateProductRequest extends FormRequest
             'fat' => 'nullable|numeric|min:0',
             'carbohydrates' => 'nullable|numeric|min:0',
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return \Illuminate\Validation\Validator
+     */
+    public function withValidator(Validator $validator)
+    {
+        $validator->sometimes('barcode', 'required', function ($input) {
+            return $input->status === 'published';
+        });
     }
 }
