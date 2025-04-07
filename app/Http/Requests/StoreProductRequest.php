@@ -29,10 +29,10 @@ class StoreProductRequest extends FormRequest
 
             'barcode' =>
                 'nullable',
-                'string',
-                'max:64',
-                'regex:/^[a-zA-Z0-9\-]+$/',
-                'unique:products,barcode',
+            'string',
+            'max:64',
+            'regex:/^[a-zA-Z0-9\-]+$/',
+            'unique:products,barcode',
 
             'saturated_fat' => 'nullable|numeric|min:0',
             'trans_fat' => 'nullable|numeric|min:0',

@@ -1,4 +1,4 @@
-/* Source: https://github.com/olefirenko/vue-barcode-reader/ */
+/* Original Source: https://github.com/olefirenko/vue-barcode-reader/ */
 
 <template>
   <div class="scanner-container">
@@ -10,48 +10,44 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { onMounted, ref, useTemplateRef, onBeforeUnmount } from 'vue';
 import { BrowserMultiFormatReader, Exception } from "@zxing/library";
 
-export default {
-  name: "stream-barcode-reader",
+const emit = defineEmits(['loaded', 'decode', 'result']);
 
-  data() {
-    return {
-      isLoading: true,
-      codeReader: new BrowserMultiFormatReader(),
-      isMediaStreamAPISupported: navigator && navigator.mediaDevices && "enumerateDevices" in navigator.mediaDevices,
-    };
-  },
+const isLoading = ref(true);
+const codeReader = new BrowserMultiFormatReader();
+const isMediaStreamAPISupported = navigator && navigator.mediaDevices && "enumerateDevices" in navigator.mediaDevices;
+const scanner = useTemplateRef('scanner');
 
-  mounted() {
-    if (!this.isMediaStreamAPISupported) {
+ onMounted(() => {
+  if (!isMediaStreamAPISupported) {
       throw new Exception("Media Stream API is not supported");
       return;
     }
 
-    this.start();
-    this.$refs.scanner.oncanplay = (event) => {
-      this.isLoading = false;
-      this.$emit("loaded");
+    startDetection();
+
+    scanner.value.oncanplay = () => {
+      isLoading.value = false;
+      emit("loaded");
     };
-  },
+});
 
-  beforeUnmount() {
-    this.codeReader.reset();
-  },
+onBeforeUnmount(() => {
+  codeReader.reset();
+});
 
-  methods: {
-    start() {
-      this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
-        if (result) {
-          this.$emit("decode", result.text);
-          this.$emit("result", result);
-        }
-      });
-    },
-  },
-};
+const startDetection = () => {
+  codeReader.decodeFromVideoDevice(undefined, scanner.value, (result, err) => {
+    console.error(err);
+    if (result) {
+      emit("decode", result.text);
+      $emit("result", result);
+    }
+  });
+}
 </script>
 
 <style scoped>

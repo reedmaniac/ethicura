@@ -28,10 +28,10 @@ class UpdateProductRequest extends FormRequest
 
             'barcode' =>
                 'nullable',
-                'string',
-                'max:64',
-                'regex:/^[a-zA-Z0-9\-]+$/',
-                'unique:products,barcode,' . $this->route('product')->id,
+            'string',
+            'max:64',
+            'regex:/^[a-zA-Z0-9\-]+$/',
+            'unique:products,barcode,' . $this->route('product')->id,
 
             'corporation_id' => 'required|exists:corporations,id',
             'status' => 'sometimes|required|in:draft,published',

@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxList, ComboboxTrigger } from '@/components/ui/combobox'
 import { Check, ChevronsUpDown, Search } from 'lucide-vue-next'
 import { ref } from 'vue'
-import { useVModel } from '@vueuse/core';
 import type { Corporation } from '@/types';
 
 interface Props {

@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { type FieldItem } from '@/types';
-import { CircleX, Check, Search } from 'lucide-vue-next';
+import { CircleX } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
 import { statuses } from './data/data';
 import ScansBarcode from '@/components/ScansBarcode.vue';

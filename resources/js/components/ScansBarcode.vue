@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { BrowserMultiFormatReader } from '@zxing/browser'
 import StreamBarcodeReader from '@/components/StreamBarcodeReader.vue';
 
 const emit = defineEmits(['confirmed']);
@@ -54,7 +53,7 @@ const saveCode = () => {
                 <DialogTitle>Scan Barcode from Package</DialogTitle>
                 <DialogDescription>
 
-                    <div class="bg-black class="h-30 w-30>
+                    <div class="bg-black h-30 w-30">
                         <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
                     </div>
 
