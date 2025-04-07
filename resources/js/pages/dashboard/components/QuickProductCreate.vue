@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/vue3';
 import CorporationComboBox from '@/components/CorporationComboBox.vue';
+import { ScanBarcode } from 'lucide-vue-next';
 
 
 const { corporations } = defineProps({
@@ -34,7 +35,12 @@ const submit = () => {
 <template>
     <Card>
         <CardHeader class="pb-3">
-            <CardTitle>Create New Product</CardTitle>
+            <CardTitle>
+                <div class="flex flex-row gap-x-2">
+                    <ScanBarcode />
+                    Create New Product
+                </div>
+            </CardTitle>
             <CardDescription> Fill out initial fields and continue editing upon submit. </CardDescription>
         </CardHeader>
         <CardContent class="grid gap-6">

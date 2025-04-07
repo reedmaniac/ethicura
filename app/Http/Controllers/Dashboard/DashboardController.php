@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuickCorporationRequest;
 use App\Http\Requests\StoreQuickProductRequest;
 use App\Models\Corporation;
+use App\Services\CorporationsService;
 use App\Services\ProductsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,14 +22,22 @@ class DashboardController extends Controller
     protected $products_service;
 
     /**
+     * The Corporation Service
+     *
+     * @var CorporationsService
+     */
+    protected $corporations_service;
+
+    /**
      * Constructor
      *
      * @param ProductsService $products_service
      * @return void
      */
-    public function __construct(ProductsService $products_service)
+    public function __construct(ProductsService $products_service, CorporationsService $corporations_service)
     {
         $this->products_service = $products_service;
+        $this->corporations_service = $corporations_service;
     }
 
     /**
@@ -46,7 +56,6 @@ class DashboardController extends Controller
         );
     }
 
-
     /**
      * Store Quick Product Create
      *
@@ -62,6 +71,26 @@ class DashboardController extends Controller
                 'dashboard.products.edit',
                 [
                     'product' => $product,
+                ]
+            )
+        );
+    }
+
+    /**
+     * Store Quick Corporation Create
+     *
+     * @param StoreQuickCorporationRequest $request
+     * @return RedirectResponse
+     */
+    public function storeQuickCorporation(StoreQuickCorporationRequest $request): RedirectResponse
+    {
+        $corporation = $this->corporations_service->create($request->all());
+
+        return redirect(
+            route(
+                'dashboard.corporations.edit',
+                [
+                    'corporation' => $corporation,
                 ]
             )
         );
