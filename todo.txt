@@ -1,2 +1,10 @@
 
-- Server Side filtering and pagination for DataTable: https://tanstack.com/table/v8/docs/guide/column-filtering
+- Server Side filtering and pagination for DataTable
+  • https://tanstack.com/table/v8/docs/guide/column-filtering
+- Mark product or corporation as needing review for specific labeling or data.
+- Categorize Food: Spices, Grains, etc.
+
+
+History:
+  • Fields have a xxx_last_updated_on value, to help keep track of when data was updated.
+  • Possible DataStore for History of Products? https://www.influxdata.com/historian-workloads/
