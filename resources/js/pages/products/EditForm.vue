@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { emit, onBeforeUnmount, onMounted } from 'vue';
+import { emit, onBeforeUnmount, onMounted, ref } from 'vue';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ import { CircleX, Camera } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
 import { statuses } from './data/data';
 import ScansBarcode from '@/components/ScansBarcode.vue';
+import TagsComboBox from '@/components/TagsComboBox.vue';
 
 const { product, cloned_product } = defineProps<{
     product?: object;
@@ -29,7 +30,7 @@ const formStub = {
     name: '',
     description: '',
     corporation_id: null,
-    certification_ids: [],
+    certification_ids: [40],
     packaging_ids: [],
     barcode: null,
 
@@ -239,9 +240,20 @@ const nutritionFields: FieldItem[] = [
         ],
     },
 ];
+
+const tagOptions = [
+  { id: 10, name: 'Next.js' },
+  { id: 20,  name: 'SvelteKit' },
+  { id: 30, name: 'Nuxt' },
+  { id: 40, name: 'Remix' },
+  { id: 50, name: 'Astro' },
+];
 </script>
 
 <template>
+
+    <TagsComboBox :options="tagOptions" placeholder="Choose labels..." v-model="form.certification_ids" />
+
     <form method="POST" action="" class="block w-full pb-20" @submit.prevent="submit">
         <div class="flex flex-row">
             <div class="ml-auto flex items-center gap-2">
@@ -312,6 +324,7 @@ const nutritionFields: FieldItem[] = [
                             <div class="space-y-1">
                                 <Label for="corporation_id">Corporation</Label>
                                 <CorporationComboBox
+                                    id="corporation_id"
                                     :corporations="corporations"
                                     v-model="form.corporation_id"
                                 />
