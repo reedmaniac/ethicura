@@ -8,3 +8,9 @@
 History:
   • Fields have a xxx_last_updated_on value, to help keep track of when data was updated.
   • Possible DataStore for History of Products? https://www.influxdata.com/historian-workloads/
+
+
+Design:
+ - Choose a color palette for light and dark mode, update colors
+ - https://www.vev.design/blog/dark-mode-website-color-palette/
+ - Create a design page to show an example of all the various fields, buttons, etc with their various sizes and variants
