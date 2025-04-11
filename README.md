@@ -20,7 +20,7 @@ This is essentially a backend service specifically geared for tracking the produ
 - [Vue 3](https://vuejs.org/) and [Inertiajs](https://inertiajs.com/) - frontend framework
 - [shadcn/vue Components](https://www.shadcn-vue.com/)
 - [Ziggy](https://github.com/tighten/ziggy) - Vue/Laravel route binding
-- [FontAwesome 6](https://docs.fontawesome.com/web/) - icons.
+- [Lucide](https://lucide.dev/guide/packages/lucide-vue-next) - icons.
 
 
 ### Local Development

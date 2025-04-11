@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { type FieldItem } from '@/types';
-import { CircleX } from 'lucide-vue-next';
+import { CircleX, Camera } from 'lucide-vue-next';
 import SaveButton from './components/SaveButton.vue';
 import { statuses } from './data/data';
 import ScansBarcode from '@/components/ScansBarcode.vue';
@@ -290,18 +290,23 @@ const nutritionFields: FieldItem[] = [
 
                             <div class="space-y-1">
                                 <Label for="barcode">Barcode</Label>
-                                <Input
-                                    id="barcode"
-                                    v-model="form.barcode"
-                                    required
-                                    placeholder="Enter or scan barcode"
-                                    autocomplete="off"
-                                    inputmode="numeric"
-                                 />
+                                <div class="flex flex-row items-center gap-x-1">
+                                    <Input
+                                        id="barcode"
+                                        v-model="form.barcode"
+                                        required
+                                        placeholder="Enter or scan barcode"
+                                        autocomplete="off"
+                                        inputmode="numeric"
+                                     />
+                                     <ScansBarcode v-on:confirmed="val => form.barcode = val">
+                                        <Button variant="tertiary" size="icon" class="w-11">
+                                            <span class="sr-only">Use Camera to Scan</span>
+                                            <Camera stroke-width="2" />
+                                        </Button>
+                                    </ScansBarcode>
+                                 </div>
                                 <InputError class="mt-2" :message="form.errors.barcode" />
-                                <ScansBarcode v-on:confirmed="val => form.barcode = val">
-                                    <Button variant="outline">Use Camera to Scan</Button>
-                                </ScansBarcode>
                             </div>
 
                             <div class="space-y-1">
