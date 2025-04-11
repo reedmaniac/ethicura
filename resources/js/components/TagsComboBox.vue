@@ -45,7 +45,7 @@ const handleChange = (newVals) => {
 
 // On initial focusin, open the dropdown of options
 document.addEventListener('focusin', (e) => {
-  if (tagInput.value?.$el?.id && tagInput.value.$el === e.target && open.value === false) {
+  if (tagInput.value?.$el && tagInput.value.$el === e.target && open.value === false) {
     open.value = true;
   }
 })
@@ -78,7 +78,6 @@ document.addEventListener('focusin', (e) => {
         <ComboboxInput v-model="searchTerm" as-child>
           <TagsInputInput
             ref="taginput"
-            id="tag-input"
             :placeholder="placeholder"
             class="min-w-[200px] w-full p-0 border-none focus-visible:ring-0 h-auto"
           />
